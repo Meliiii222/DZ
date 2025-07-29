@@ -1,0 +1,30 @@
+on:
+  push:
+    paths:
+      - '**.zip'
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Unzip ZIP files to root
+        run: |
+          for file in $(find . -name '*.zip'); do
+            unzip -o "$file" -d .
+            rm "$file"
+          done
+
+      - name: Commit unzipped content
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Décompression automatique des fichiers ZIP"
+          git push
