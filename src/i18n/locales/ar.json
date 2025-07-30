@@ -1,0 +1,55 @@
+
+{
+  "common": {
+    "search": "بحث",
+    "filter": "فلتر",
+    "download": "تحميل",
+    "view": "عرض",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "warning": "تحذير",
+    "info": "معلومات"
+  },
+  "header": {
+    "title": "dalil.dz",
+    "subtitle": "منصة المراقبة القانونية والتنظيمية",
+    "searchPlaceholder": "بحث سريع..."
+  },
+  "navigation": {
+    "dashboard": "لوحة القيادة",
+    "legalTexts": "النصوص القانونية",
+    "procedures": "الإجراءات الإدارية",
+    "analysis": "التحليلات والتقارير",
+    "collaboration": "التعاون",
+    "news": "الأخبار والمراجع",
+    "configuration": "التكوين",
+    "help": "مساعدة"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "register": "التسجيل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "loginButton": "دخول",
+    "registerButton": "تسجيل",
+    "loginError": "خطأ في تسجيل الدخول",
+    "registerError": "خطأ في التسجيل",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "registerSuccess": "تم التسجيل بنجاح"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "عنوان بريد إلكتروني غير صالح",
+    "minLength": "الحد الأدنى {{count}} أحرف",
+    "maxLength": "الحد الأقصى {{count}} أحرف",
+    "passwordMismatch": "كلمات المرور غير متطابقة"
+  }
+}

@@ -1,0 +1,72 @@
+
+{
+  "common": {
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "download": "Télécharger",
+    "view": "Consulter",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Attention",
+    "info": "Information",
+    "algeria": "Algérie",
+    "local": "Local",
+    "national": "National"
+  },
+  "header": {
+    "title": "Dalil.dz",
+    "subtitle": "Plateforme algérienne de veille juridique et réglementaire",
+    "searchPlaceholder": "Recherche dans la législation algérienne...",
+    "slogan": "100% Algérienne • 100% Locale • 100% Indépendante"
+  },
+  "navigation": {
+    "dashboard": "Tableau de bord",
+    "legalTexts": "Textes juridiques algériens",
+    "procedures": "Procédures administratives DZ",
+    "analysis": "Analyses et rapports",
+    "collaboration": "Collaboration",
+    "news": "Actualités juridiques algériennes",
+    "configuration": "Configuration",
+    "help": "Aide",
+    "wilayas": "48 Wilayas",
+    "institutions": "Institutions nationales"
+  },
+  "auth": {
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "register": "Inscription",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginButton": "Se connecter",
+    "registerButton": "S'inscrire",
+    "loginError": "Erreur de connexion",
+    "registerError": "Erreur d'inscription",
+    "loginSuccess": "Connexion réussie",
+    "registerSuccess": "Inscription réussie",
+    "localAccount": "Compte local sécurisé"
+  },
+  "validation": {
+    "required": "Ce champ est requis",
+    "email": "Adresse email invalide",
+    "password": "Mot de passe requis",
+    "confirmPassword": "Les mots de passe ne correspondent pas"
+  },
+  "algerian": {
+    "wilayas": "Wilayas algériennes",
+    "droit": "Droit algérien",
+    "institutions": "Institutions de la République",
+    "codes": "Codes juridiques nationaux",
+    "lois": "Lois de la République algérienne",
+    "decrets": "Décrets exécutifs et présidentiels",
+    "arretes": "Arrêtés ministériels et de wilaya",
+    "constitution": "Constitution algérienne",
+    "localProcessing": "Traitement 100% local"
+  }
+}

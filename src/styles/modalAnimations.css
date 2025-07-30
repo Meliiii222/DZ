@@ -1,0 +1,39 @@
+
+/* Animations pour les modales */
+
+@keyframes slide-in-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-down {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.3s ease-out;
+}
+
+.animate-slide-out-down {
+  animation: slide-out-down 0.3s ease-out;
+}
+
+/* Classes utilitaires pour les tailles de modales */
+.modal-small { max-width: 24rem; }
+.modal-medium { max-width: 28rem; }
+.modal-large { max-width: 32rem; }
+.modal-xl { max-width: 48rem; }
+.modal-full { max-width: 72rem; max-height: 90vh; }

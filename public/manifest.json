@@ -1,0 +1,31 @@
+{
+  "name": "Dalil.dz - Plateforme Juridique Algérienne",
+  "short_name": "Dalil.dz",
+  "description": "Plateforme avancée pour la gestion et l'analyse des textes juridiques algériens avec OCR intelligent",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#006233",
+  "orientation": "portrait-primary",
+  "categories": ["legal", "government", "productivity"],
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32 48x48 64x64 128x128 256x256",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
