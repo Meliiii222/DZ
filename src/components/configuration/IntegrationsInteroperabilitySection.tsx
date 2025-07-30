@@ -104,8 +104,32 @@ export function IntegrationsInteroperabilitySection({ language = "fr" }: Integra
     { format: "CSV", support: "Full", usage: "65%", icon: Database },
     { format: "PDF", support: "Read/Write", usage: "89%", icon: FileText },
     { format: "RDF", support: "Read", usage: "23%", icon: GitBranch },
-    { format: "EDI", support: "Partial", usage: "12%", icon: ExternalLink }
+    { format: "EDI", support: "Partial", usage: "12%", icon: ExternalLink },
+    { format: "YAML", support: "Full", usage: "45%", icon: Code },
+    { format: "Excel", support: "Read/Write", usage: "67%", icon: FileText },
+    { format: "Parquet", support: "Read", usage: "34%", icon: Database },
+    { format: "Avro", support: "Partial", usage: "18%", icon: Code },
+    { format: "Protobuf", support: "Full", usage: "28%", icon: Code },
+    { format: "GraphQL", support: "Full", usage: "56%", icon: Webhook },
+    { format: "SOAP", support: "Partial", usage: "22%", icon: Server },
+    { format: "OpenAPI", support: "Full", usage: "81%", icon: Code },
+    { format: "Markdown", support: "Read/Write", usage: "39%", icon: FileText },
+    { format: "GeoJSON", support: "Read", usage: "15%", icon: Globe }
   ];
+
+  // Pagination pour les formats de données
+  const {
+    currentData: paginatedDataFormats,
+    currentPage: dataFormatsCurrentPage,
+    totalPages: dataFormatsTotalPages,
+    itemsPerPage: dataFormatsItemsPerPage,
+    totalItems: dataFormatsTotalItems,
+    setCurrentPage: setDataFormatsCurrentPage,
+    setItemsPerPage: setDataFormatsItemsPerPage
+  } = usePagination({
+    data: dataFormats,
+    itemsPerPage: 6
+  });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -363,7 +387,7 @@ export function IntegrationsInteroperabilitySection({ language = "fr" }: Integra
 
         <TabsContent value="formats" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {dataFormats.map((format, index) => {
+            {paginatedDataFormats.map((format, index) => {
               const Icon = format.icon;
               return (
                 <Card key={index}>
@@ -387,6 +411,16 @@ export function IntegrationsInteroperabilitySection({ language = "fr" }: Integra
               );
             })}
           </div>
+          
+          {/* Pagination pour les formats de données */}
+          <Pagination
+            currentPage={dataFormatsCurrentPage}
+            totalPages={dataFormatsTotalPages}
+            totalItems={dataFormatsTotalItems}
+            itemsPerPage={dataFormatsItemsPerPage}
+            onPageChange={setDataFormatsCurrentPage}
+            onItemsPerPageChange={setDataFormatsItemsPerPage}
+          />
         </TabsContent>
 
         <TabsContent value="ocr-config" className="space-y-4">
