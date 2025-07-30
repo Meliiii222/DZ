@@ -29,7 +29,7 @@ import OCRTestBasic from "@/components/OCRTestBasic";
 import SimplifiedOCRComponent from "@/components/ocr/SimplifiedOCRComponent";
 import RealOCRComponent from "@/components/ocr/RealOCRComponent";
 import DZOCRIAProcessor from "@/components/ocr/DZOCRIAProcessor";
-import ApprovalWorkflowComponent from "@/components/ocr/ApprovalWorkflowComponent";
+import { ApprovalWorkflowComponent } from "@/components/ocr/ApprovalWorkflowComponent";
 import BatchProcessingComponent from "@/components/ocr/BatchProcessingComponent";
 import OCRAnalyticsComponent from "@/components/ocr/OCRAnalyticsComponent";
 import OCRSettingsComponent from "@/components/ocr/OCRSettingsComponent";
