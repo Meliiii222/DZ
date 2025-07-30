@@ -423,7 +423,10 @@ export function EnhancedAssistedWritingSection() {
             <Pagination
               currentPage={activitiesPage}
               totalPages={activitiesTotalPages}
+              totalItems={activitiesTotalItems}
+              itemsPerPage={4}
               onPageChange={goToActivitiesPage}
+              onItemsPerPageChange={() => {}}
             />
           </div>
         </CardContent>
