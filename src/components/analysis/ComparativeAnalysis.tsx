@@ -17,7 +17,13 @@ const comparisonData = [
   { metric: 'Satisfaction', periode1: 90, periode2: 94, difference: 4 },
   { metric: 'Conformité', periode1: 88, periode2: 91, difference: 3 },
   { metric: 'Efficacité', periode1: 82, periode2: 89, difference: 7 },
-  { metric: 'Qualité', periode1: 95, periode2: 97, difference: 2 }
+  { metric: 'Qualité', periode1: 95, periode2: 97, difference: 2 },
+  { metric: 'Temps de réponse', periode1: 75, periode2: 82, difference: 7 },
+  { metric: 'Taux de succès', periode1: 88, periode2: 93, difference: 5 },
+  { metric: 'Volume de documents', periode1: 1200, periode2: 1450, difference: 21 },
+  { metric: 'Fréquence d\'accès', periode1: 65, periode2: 72, difference: 7 },
+  { metric: 'Précision', periode1: 92, periode2: 95, difference: 3 },
+  { metric: 'Réactivité', periode1: 80, periode2: 87, difference: 7 }
 ];
 
 const trendData = [
@@ -26,7 +32,13 @@ const trendData = [
   { month: 'Mar', q1: 92, q4: 85, usage: 1480, documents: 58 },
   { month: 'Avr', q1: 87, q4: 88, usage: 1320, documents: 49 },
   { month: 'Mai', q1: 94, q4: 91, usage: 1650, documents: 67 },
-  { month: 'Jun', q1: 91, q4: 89, usage: 1580, documents: 63 }
+  { month: 'Jun', q1: 91, q4: 89, usage: 1580, documents: 63 },
+  { month: 'Jul', q1: 89, q4: 86, usage: 1420, documents: 55 },
+  { month: 'Aoû', q1: 93, q4: 90, usage: 1720, documents: 71 },
+  { month: 'Sep', q1: 96, q4: 93, usage: 1850, documents: 78 },
+  { month: 'Oct', q1: 90, q4: 87, usage: 1680, documents: 69 },
+  { month: 'Nov', q1: 95, q4: 92, usage: 1920, documents: 82 },
+  { month: 'Déc', q1: 98, q4: 95, usage: 2100, documents: 89 }
 ];
 
 const distributionData = [
@@ -41,7 +53,14 @@ const departmentData = [
   { department: 'Intérieur', performance: 87, satisfaction: 85, efficiency: 89 },
   { department: 'Finances', performance: 94, satisfaction: 91, efficiency: 95 },
   { department: 'Travail', performance: 89, satisfaction: 87, efficiency: 88 },
-  { department: 'Santé', performance: 91, satisfaction: 89, efficiency: 92 }
+  { department: 'Santé', performance: 91, satisfaction: 89, efficiency: 92 },
+  { department: 'Éducation', performance: 86, satisfaction: 84, efficiency: 87 },
+  { department: 'Transport', performance: 88, satisfaction: 86, efficiency: 89 },
+  { department: 'Agriculture', performance: 85, satisfaction: 83, efficiency: 86 },
+  { department: 'Commerce', performance: 93, satisfaction: 90, efficiency: 94 },
+  { department: 'Environnement', performance: 90, satisfaction: 88, efficiency: 91 },
+  { department: 'Culture', performance: 84, satisfaction: 82, efficiency: 85 },
+  { department: 'Sports', performance: 87, satisfaction: 85, efficiency: 88 }
 ];
 
 const timeSeriesData = [
@@ -100,6 +119,20 @@ export function ComparativeAnalysis() {
     setItemsPerPage: setTrendItemsPerPage
   } = usePagination({
     data: trendData,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les données de départements
+  const {
+    currentData: paginatedDepartmentData,
+    currentPage: departmentPage,
+    totalPages: departmentTotalPages,
+    itemsPerPage: departmentItemsPerPage,
+    totalItems: departmentTotalItems,
+    setCurrentPage: setDepartmentPage,
+    setItemsPerPage: setDepartmentItemsPerPage
+  } = usePagination({
+    data: departmentData,
     itemsPerPage: 6
   });
 
@@ -445,7 +478,7 @@ export function ComparativeAnalysis() {
                   <CardContent>
                     <div className="h-80">
                       <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={trendData}>
+                        <AreaChart data={paginatedTrendData}>
                           <CartesianGrid strokeDasharray="3 3" />
                           <XAxis dataKey="month" />
                           <YAxis />
@@ -534,7 +567,7 @@ export function ComparativeAnalysis() {
                   <CardContent>
                     <div className="h-80">
                       <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={departmentData}>
+                        <BarChart data={paginatedDepartmentData}>
                           <CartesianGrid strokeDasharray="3 3" />
                           <XAxis dataKey="department" />
                           <YAxis />
@@ -601,7 +634,7 @@ export function ComparativeAnalysis() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {comparisonData.map((item, index) => (
+                      {paginatedComparisonData.map((item, index) => (
                         <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                           <div className="flex items-center gap-3">
                             <span className="font-medium">{item.metric}</span>
@@ -622,6 +655,18 @@ export function ComparativeAnalysis() {
                         </div>
                       ))}
                     </div>
+                    {comparisonTotalPages > 1 && (
+                      <div className="mt-6">
+                        <Pagination
+                          currentPage={comparisonPage}
+                          totalPages={comparisonTotalPages}
+                          totalItems={comparisonTotalItems}
+                          itemsPerPage={comparisonItemsPerPage}
+                          onPageChange={setComparisonPage}
+                          onItemsPerPageChange={setComparisonItemsPerPage}
+                        />
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
