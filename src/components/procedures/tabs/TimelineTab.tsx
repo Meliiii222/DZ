@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { Pagination } from '@/components/common/Pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { 
   Clock, 
   Calendar, 
@@ -78,6 +80,102 @@ export function TimelineTab() {
       authority: "Ministère de l'Intérieur",
       nextStep: "Analyse des retours",
       procedureId: "4"
+    },
+    {
+      id: 5,
+      date: "5 janvier 2025",
+      time: "11:20",
+      title: "Mise à jour des formulaires administratifs",
+      description: "Simplification et modernisation des formulaires",
+      type: "Modernisation",
+      status: "En cours",
+      authority: "Ministère de l'Administration",
+      nextStep: "Validation des nouveaux formats",
+      procedureId: "1"
+    },
+    {
+      id: 6,
+      date: "3 janvier 2025",
+      time: "15:30",
+      title: "Nouvelle procédure de déclaration fiscale",
+      description: "Dématérialisation complète des déclarations",
+      type: "Création",
+      status: "Complété",
+      authority: "Ministère des Finances",
+      nextStep: "Formation des agents",
+      procedureId: "2"
+    },
+    {
+      id: 7,
+      date: "1 janvier 2025",
+      time: "08:00",
+      title: "Réforme du code de la route",
+      description: "Mise à jour des règles de circulation",
+      type: "Révision",
+      status: "En cours",
+      authority: "Ministère des Transports",
+      nextStep: "Publication au journal officiel",
+      procedureId: "3"
+    },
+    {
+      id: 8,
+      date: "30 décembre 2024",
+      time: "13:45",
+      title: "Consultation sur la protection des données",
+      description: "Nouvelle réglementation RGPD algérien",
+      type: "Consultation",
+      status: "Complété",
+      authority: "Ministère du Numérique",
+      nextStep: "Analyse des contributions",
+      procedureId: "4"
+    },
+    {
+      id: 9,
+      date: "28 décembre 2024",
+      time: "16:15",
+      title: "Modernisation des services publics",
+      description: "Transformation numérique des administrations",
+      type: "Modernisation",
+      status: "En cours",
+      authority: "Ministère de la Transformation Numérique",
+      nextStep: "Déploiement pilote",
+      procedureId: "1"
+    },
+    {
+      id: 10,
+      date: "25 décembre 2024",
+      time: "10:30",
+      title: "Nouvelle procédure d'export",
+      description: "Simplification des démarches d'exportation",
+      type: "Création",
+      status: "Complété",
+      authority: "Ministère du Commerce Extérieur",
+      nextStep: "Formation des opérateurs",
+      procedureId: "2"
+    },
+    {
+      id: 11,
+      date: "22 décembre 2024",
+      time: "14:20",
+      title: "Révision des normes de construction",
+      description: "Mise à jour des standards de sécurité",
+      type: "Révision",
+      status: "En cours",
+      authority: "Ministère de l'Habitat",
+      nextStep: "Validation technique",
+      procedureId: "3"
+    },
+    {
+      id: 12,
+      date: "20 décembre 2024",
+      time: "09:15",
+      title: "Consultation citoyenne - Services publics",
+      description: "Amélioration de l'accès aux services publics",
+      type: "Consultation",
+      status: "Complété",
+      authority: "Ministère de l'Administration",
+      nextStep: "Synthèse des propositions",
+      procedureId: "4"
     }
   ];
 
@@ -102,6 +200,20 @@ export function TimelineTab() {
   const filteredTimelineData = selectedProcedure === 'all' 
     ? timelineData 
     : timelineData.filter(item => item.procedureId === selectedProcedure);
+
+  // Pagination pour la timeline des procédures
+  const {
+    currentData: paginatedTimelineData,
+    currentPage,
+    totalPages,
+    itemsPerPage,
+    totalItems,
+    setCurrentPage,
+    setItemsPerPage
+  } = usePagination({
+    data: filteredTimelineData,
+    itemsPerPage: 10
+  });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -240,7 +352,7 @@ export function TimelineTab() {
           {/* Ligne verticale de la timeline */}
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
           
-          {filteredTimelineData.map((item, index) => {
+          {paginatedTimelineData.map((item, index) => {
             const TypeIcon = getTypeIcon(item.type);
             return (
               <div key={item.id} className="relative flex items-start space-x-6 pb-8">
@@ -291,6 +403,14 @@ export function TimelineTab() {
             );
           })}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+          totalItems={totalItems}
+          onItemsPerPageChange={setItemsPerPage}
+        />
       </div>
 
       {/* Actions rapides */}
