@@ -79,6 +79,56 @@ export function TrendsAnalysis() {
       documents: 45,
       status: "stable",
       description: "Demandes constantes pour les études d'impact environnemental"
+    },
+    {
+      id: 6,
+      topic: "Carte d'identité biométrique",
+      category: "État civil",
+      growth: +38,
+      searches: 2156,
+      documents: 123,
+      status: "rising",
+      description: "Demande croissante pour les cartes d'identité avec puce électronique"
+    },
+    {
+      id: 7,
+      topic: "Licence commerciale simplifiée",
+      category: "Commerce",
+      growth: +41,
+      searches: 1876,
+      documents: 95,
+      status: "rising",
+      description: "Simplification des procédures de création d'entreprise"
+    },
+    {
+      id: 8,
+      topic: "Certificat médical en ligne",
+      category: "Santé",
+      growth: +19,
+      searches: 1345,
+      documents: 67,
+      status: "rising",
+      description: "Dématérialisation des certificats médicaux"
+    },
+    {
+      id: 9,
+      topic: "Attestation de travail numérique",
+      category: "Social",
+      growth: +28,
+      searches: 1654,
+      documents: 82,
+      status: "rising",
+      description: "Génération automatique des attestations de travail"
+    },
+    {
+      id: 10,
+      topic: "Passeport express",
+      category: "État civil",
+      growth: +52,
+      searches: 2345,
+      documents: 134,
+      status: "rising",
+      description: "Service de passeport en urgence très demandé"
     }
   ];
 
@@ -110,6 +160,34 @@ export function TrendsAnalysis() {
       timeframe: "Moyen terme",
       probability: 78,
       description: "Centralisation de tous les services administratifs sur une plateforme unique"
+    },
+    {
+      title: "Blockchain pour la certification",
+      impact: "Moyen",
+      timeframe: "Long terme",
+      probability: 45,
+      description: "Utilisation de la blockchain pour sécuriser les documents officiels"
+    },
+    {
+      title: "Services mobiles prioritaires",
+      impact: "Élevé",
+      timeframe: "Court terme",
+      probability: 92,
+      description: "Développement d'applications mobiles pour les services les plus utilisés"
+    },
+    {
+      title: "Automatisation des processus",
+      impact: "Très élevé",
+      timeframe: "Moyen terme",
+      probability: 81,
+      description: "Automatisation complète des procédures répétitives"
+    },
+    {
+      title: "Personnalisation des services",
+      impact: "Moyen",
+      timeframe: "Long terme",
+      probability: 63,
+      description: "Adaptation des services aux besoins spécifiques des utilisateurs"
     }
   ];
 
@@ -133,6 +211,26 @@ export function TrendsAnalysis() {
       period: "Octobre - Décembre",
       trends: ["Subventions", "Marchés publics", "Bilans annuels"],
       peakMonth: "Novembre"
+    },
+    {
+      period: "Période scolaire",
+      trends: ["Inscriptions universitaires", "Bourses d'études", "Certificats de scolarité"],
+      peakMonth: "Septembre"
+    },
+    {
+      period: "Période estivale",
+      trends: ["Passeports touristiques", "Autorisations de sortie", "Certificats de vacances"],
+      peakMonth: "Juin"
+    },
+    {
+      period: "Période fiscale",
+      trends: ["Déclarations d'impôts", "Attestations fiscales", "Certificats de non-imposition"],
+      peakMonth: "Mars"
+    },
+    {
+      period: "Période commerciale",
+      trends: ["Licences commerciales", "Autorisations d'exploitation", "Certificats de conformité"],
+      peakMonth: "Octobre"
     }
   ];
 
@@ -203,6 +301,20 @@ export function TrendsAnalysis() {
   } = usePagination({
     data: emergingTrends,
     itemsPerPage: 5
+  });
+
+  // Pagination pour les tendances saisonnières
+  const {
+    currentData: paginatedSeasonalTrends,
+    currentPage: seasonalPage,
+    totalPages: seasonalTotalPages,
+    itemsPerPage: seasonalItemsPerPage,
+    totalItems: seasonalTotalItems,
+    setCurrentPage: setSeasonalPage,
+    setItemsPerPage: setSeasonalItemsPerPage
+  } = usePagination({
+    data: seasonalTrends,
+    itemsPerPage: 4
   });
 
   return (
@@ -401,7 +513,7 @@ export function TrendsAnalysis() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {seasonalTrends.map((season, index) => (
+                  {paginatedSeasonalTrends.map((season, index) => (
                     <div key={index} className="border rounded-lg p-4">
                       <div className="flex items-center justify-between mb-3">
                         <h4 className="font-semibold text-gray-900">{season.period}</h4>
@@ -421,6 +533,18 @@ export function TrendsAnalysis() {
                     </div>
                   ))}
                 </div>
+                {seasonalTotalPages > 1 && (
+                  <div className="mt-6">
+                    <Pagination
+                      currentPage={seasonalPage}
+                      totalPages={seasonalTotalPages}
+                      totalItems={seasonalTotalItems}
+                      itemsPerPage={seasonalItemsPerPage}
+                      onPageChange={setSeasonalPage}
+                      onItemsPerPageChange={setSeasonalItemsPerPage}
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
