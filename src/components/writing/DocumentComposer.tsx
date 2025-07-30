@@ -205,8 +205,112 @@ export function DocumentComposer() {
       wordCount: 1834,
       createdAt: '2024-01-13',
       lastModified: '2024-01-14'
+    },
+    {
+      id: '4',
+      title: 'Requête Administrative - Mairie d\'Alger',
+      type: 'Requête Administrative',
+      status: 'completed',
+      progress: 100,
+      wordCount: 892,
+      createdAt: '2024-01-12',
+      lastModified: '2024-01-12'
+    },
+    {
+      id: '5',
+      title: 'Bail Commercial - Centre Commercial',
+      type: 'Bail Commercial',
+      status: 'review',
+      progress: 75,
+      wordCount: 1567,
+      createdAt: '2024-01-11',
+      lastModified: '2024-01-13'
+    },
+    {
+      id: '6',
+      title: 'Convention de Divorce - Famille Martin',
+      type: 'Convention de Divorce',
+      status: 'draft',
+      progress: 45,
+      wordCount: 2341,
+      createdAt: '2024-01-10',
+      lastModified: '2024-01-12'
+    },
+    {
+      id: '7',
+      title: 'Procès-Verbal AG - Entreprise SARL',
+      type: 'Procès-Verbal d\'Assemblée',
+      status: 'completed',
+      progress: 100,
+      wordCount: 678,
+      createdAt: '2024-01-09',
+      lastModified: '2024-01-09'
+    },
+    {
+      id: '8',
+      title: 'Contrat de Services - Cabinet Avocat',
+      type: 'Contrat de Prestation de Services',
+      status: 'review',
+      progress: 90,
+      wordCount: 1345,
+      createdAt: '2024-01-08',
+      lastModified: '2024-01-11'
+    },
+    {
+      id: '9',
+      title: 'Testament Authentique - M. Dubois',
+      type: 'Testament Authentique',
+      status: 'draft',
+      progress: 30,
+      wordCount: 1890,
+      createdAt: '2024-01-07',
+      lastModified: '2024-01-10'
+    },
+    {
+      id: '10',
+      title: 'Demande de Licence - Restaurant Le Gourmet',
+      type: 'Demande de Licence Commerciale',
+      status: 'completed',
+      progress: 100,
+      wordCount: 756,
+      createdAt: '2024-01-06',
+      lastModified: '2024-01-08'
+    },
+    {
+      id: '11',
+      title: 'Contrat de Mariage - Famille Benali',
+      type: 'Contrat de Mariage',
+      status: 'review',
+      progress: 80,
+      wordCount: 1678,
+      createdAt: '2024-01-05',
+      lastModified: '2024-01-09'
+    },
+    {
+      id: '12',
+      title: 'Acte de Cession - Parts Sociales SARL',
+      type: 'Acte de Cession de Parts',
+      status: 'draft',
+      progress: 55,
+      wordCount: 1123,
+      createdAt: '2024-01-04',
+      lastModified: '2024-01-07'
     }
   ];
+
+  // Pagination pour les documents générés
+  const {
+    currentData: paginatedDocuments,
+    currentPage: documentsCurrentPage,
+    totalPages: documentsTotalPages,
+    itemsPerPage: documentsItemsPerPage,
+    totalItems: documentsTotalItems,
+    setCurrentPage: setDocumentsCurrentPage,
+    setItemsPerPage: setDocumentsItemsPerPage
+  } = usePagination({
+    data: documents,
+    itemsPerPage: 6
+  });
 
   const handleGenerateDocument = (template: DocumentTemplate) => {
     setSelectedTemplate(template);
@@ -416,7 +520,7 @@ export function DocumentComposer() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {documents.map((doc) => (
+                {paginatedDocuments.map((doc) => (
                   <div key={doc.id} className="border rounded-lg p-4 hover:bg-gray-50">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
@@ -461,6 +565,16 @@ export function DocumentComposer() {
                   </div>
                 ))}
               </div>
+              
+              {/* Pagination pour les documents générés */}
+              <Pagination
+                currentPage={documentsCurrentPage}
+                totalPages={documentsTotalPages}
+                totalItems={documentsTotalItems}
+                itemsPerPage={documentsItemsPerPage}
+                onPageChange={setDocumentsCurrentPage}
+                onItemsPerPageChange={setDocumentsItemsPerPage}
+              />
             </CardContent>
           </Card>
         </TabsContent>
