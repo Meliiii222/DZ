@@ -1,42 +1,24 @@
-/**
- * Composant de workflow d'approbation pour les documents OCR traités
- * Gère la validation et l'enregistrement des données extraites
- */
-
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { DocumentViewerModal } from "../modals/DocumentViewerModal";
 import { Pagination } from '@/components/common/Pagination';
 import { usePagination } from '@/hooks/usePagination';
 import { 
-  CheckCircle, 
-  AlertTriangle, 
-  Clock, 
-  User, 
-  FileText, 
-  Save, 
-  Send,
   Eye,
   Edit,
   MessageCircle,
-  History,
-  ArrowRight,
-  ArrowLeft,
   Download,
-  Upload,
   Zap,
-  Search,
-  Filter,
   ThumbsUp,
   ThumbsDown,
   FileSearch,
+  History,
   ClipboardList
 } from "lucide-react";
 
@@ -67,9 +49,7 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
   const [documentTypeFilter, setDocumentTypeFilter] = useState<'all' | 'legal-text' | 'procedure'>('all');
   const [selectedDocument, setSelectedDocument] = useState<WorkflowDocument | null>(null);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const [reviewNotes, setReviewNotes] = useState('');
 
-  // Documents simulés pour le workflow
   const workflowItems: WorkflowDocument[] = [
     {
       id: '1',
@@ -190,7 +170,6 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
     }
   ];
 
-  // Filtrage des documents
   const filteredDocuments = workflowItems.filter(doc => {
     const matchesSearch = doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       doc.submittedBy.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -205,7 +184,6 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
     return matchesSearch && matchesStatus && matchesDocumentType;
   });
 
-  // Pagination pour les documents filtrés
   const {
     currentData: paginatedDocuments,
     currentPage,
@@ -242,7 +220,6 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
         iconColor="text-orange-600"
       />
 
-      {/* Statistics - Cliquables comme filtres */}
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
         <Card 
           className={`p-4 bg-gray-50 cursor-pointer hover:shadow-md transition-shadow ${
@@ -313,9 +290,7 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Documents List */}
         <div className="lg:col-span-2 space-y-4">
-          {/* Filtres et recherche */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <Input
@@ -337,7 +312,6 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
             </Select>
           </div>
 
-          {/* Liste des documents paginée */}
           <div className="space-y-4">
             {paginatedDocuments.map((doc) => (
               <Card key={doc.id} className="hover:shadow-md transition-shadow">
@@ -451,7 +425,6 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
             ))}
           </div>
 
-          {/* Pagination */}
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
@@ -462,7 +435,6 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
           />
         </div>
 
-        {/* Sidebar avec informations supplémentaires */}
         <div className="space-y-4">
           <Card>
             <CardHeader>
@@ -479,9 +451,9 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
                 </div>
                 
                 <div className="text-sm text-gray-600">
-                  <p>• Documents à haute confiance (>90%) : {workflowItems.filter(d => d.extractionConfidence > 90).length}</p>
+                  <p>• Documents à haute confiance (plus de 90%) : {workflowItems.filter(d => d.extractionConfidence > 90).length}</p>
                   <p>• Documents à confiance moyenne (70-90%) : {workflowItems.filter(d => d.extractionConfidence >= 70 && d.extractionConfidence <= 90).length}</p>
-                  <p>• Documents à faible confiance (<70%) : {workflowItems.filter(d => d.extractionConfidence < 70).length}</p>
+                  <p>• Documents à faible confiance (moins de 70%) : {workflowItems.filter(d => d.extractionConfidence < 70).length}</p>
                 </div>
               </div>
             </CardContent>
@@ -509,7 +481,6 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
         </div>
       </div>
 
-      {/* Modal de visualisation des documents */}
       {selectedDocument && (
         <DocumentViewerModal
           isOpen={isViewerOpen}
