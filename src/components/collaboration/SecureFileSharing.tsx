@@ -192,7 +192,7 @@ export function SecureFileSharing() {
     resource.author.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Pagination pour les ressources partagées
+  // Pagination pour les ressources partagées (toutes)
   const {
     currentData: paginatedResources,
     currentPage,
@@ -204,6 +204,42 @@ export function SecureFileSharing() {
   } = usePagination({
     data: filteredResources,
     itemsPerPage: 10
+  });
+
+  // Pagination pour les documents
+  const documents = filteredResources.filter(resource => resource.type === 'document');
+  const {
+    currentData: paginatedDocuments,
+    currentPage: documentsPage,
+    totalPages: documentsTotalPages,
+    setCurrentPage: setDocumentsPage
+  } = usePagination({
+    data: documents,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les liens
+  const links = filteredResources.filter(resource => resource.type === 'link');
+  const {
+    currentData: paginatedLinks,
+    currentPage: linksPage,
+    totalPages: linksTotalPages,
+    setCurrentPage: setLinksPage
+  } = usePagination({
+    data: links,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les modèles
+  const templates = filteredResources.filter(resource => resource.category === 'Modèles');
+  const {
+    currentData: paginatedTemplates,
+    currentPage: templatesPage,
+    totalPages: templatesTotalPages,
+    setCurrentPage: setTemplatesPage
+  } = usePagination({
+    data: templates,
+    itemsPerPage: 6
   });
 
   const getTypeIcon = (type: string) => {
@@ -414,205 +450,223 @@ export function SecureFileSharing() {
         </TabsContent>
 
         <TabsContent value="documents" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {filteredResources
-            .filter(resource => resource.type === 'document')
-            .map((resource) => {
-              const TypeIcon = getTypeIcon(resource.type);
-              return (
-                <Card key={resource.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="pt-6">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-start gap-4 flex-1">
-                        <TypeIcon className="h-8 w-8 text-blue-600 mt-1" />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
-                              {resource.title}
-                            </h3>
-                            <Badge className={getAccessColor(resource.access)}>
-                              {resource.access === 'public' ? 'Public' : 
-                               resource.access === 'members' ? 'Membres' :
-                               resource.access === 'restricted' ? 'Restreint' : 'Privé'}
-                            </Badge>
-                          </div>
-                          
-                          <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                            <span>Par {resource.author}</span>
-                            <Badge variant="outline">{resource.category}</Badge>
-                            <div className="flex items-center gap-1">
-                              <Calendar className="w-4 h-4" />
-                              {resource.shared}
-                            </div>
-                            <span className="font-medium">{resource.size}</span>
-                          </div>
-                          
-                          <div className="flex gap-2 flex-wrap">
-                            {resource.tags.map((tag, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="text-right">
+          {paginatedDocuments.map((resource) => {
+            const TypeIcon = getTypeIcon(resource.type);
+            return (
+              <Card key={resource.id} className="hover:shadow-md transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-start gap-4 flex-1">
+                      <TypeIcon className="h-8 w-8 text-blue-600 mt-1" />
+                      <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Download className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Share2 className="w-4 h-4" />
-                          </Button>
+                          <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
+                            {resource.title}
+                          </h3>
+                          <Badge className={getAccessColor(resource.access)}>
+                            {resource.access === 'public' ? 'Public' : 
+                             resource.access === 'members' ? 'Membres' :
+                             resource.access === 'restricted' ? 'Restreint' : 'Privé'}
+                          </Badge>
                         </div>
-                        <div className="text-sm text-gray-600">
-                          <div>{resource.downloads} téléchargements</div>
-                          <div>{resource.views} vues</div>
+                        
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                          <span>Par {resource.author}</span>
+                          <Badge variant="outline">{resource.category}</Badge>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {resource.shared}
+                          </div>
+                          <span className="font-medium">{resource.size}</span>
+                        </div>
+                        
+                        <div className="flex gap-2 flex-wrap">
+                          {resource.tags.map((tag, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    
+                    <div className="text-right">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Button variant="outline" size="sm">
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Download className="w-4 h-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Share2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        <div>{resource.downloads} téléchargements</div>
+                        <div>{resource.views} vues</div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+          {/* Pagination pour les documents */}
+          <Pagination
+            currentPage={documentsPage}
+            totalPages={documentsTotalPages}
+            totalItems={documents.length}
+            itemsPerPage={6}
+            onPageChange={setDocumentsPage}
+          />
         </TabsContent>
 
         <TabsContent value="links" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {filteredResources
-            .filter(resource => resource.type === 'link')
-            .map((resource) => {
-              const TypeIcon = getTypeIcon(resource.type);
-              return (
-                <Card key={resource.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="pt-6">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-start gap-4 flex-1">
-                        <TypeIcon className="h-8 w-8 text-green-600 mt-1" />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
-                              {resource.title}
-                            </h3>
-                            <Badge className={getAccessColor(resource.access)}>
-                              {resource.access === 'public' ? 'Public' : 
-                               resource.access === 'members' ? 'Membres' :
-                               resource.access === 'restricted' ? 'Restreint' : 'Privé'}
-                            </Badge>
-                            <Badge variant="outline" className="bg-green-50 text-green-700">Lien externe</Badge>
-                          </div>
-                          
-                          <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                            <span>Par {resource.author}</span>
-                            <Badge variant="outline">{resource.category}</Badge>
-                            <div className="flex items-center gap-1">
-                              <Calendar className="w-4 h-4" />
-                              {resource.shared}
-                            </div>
-                          </div>
-                          
-                          <div className="flex gap-2 flex-wrap">
-                            {resource.tags.map((tag, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="text-right">
+          {paginatedLinks.map((resource) => {
+            const TypeIcon = getTypeIcon(resource.type);
+            return (
+              <Card key={resource.id} className="hover:shadow-md transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-start gap-4 flex-1">
+                      <TypeIcon className="h-8 w-8 text-green-600 mt-1" />
+                      <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Link className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Share2 className="w-4 h-4" />
-                          </Button>
+                          <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
+                            {resource.title}
+                          </h3>
+                          <Badge className={getAccessColor(resource.access)}>
+                            {resource.access === 'public' ? 'Public' : 
+                             resource.access === 'members' ? 'Membres' :
+                             resource.access === 'restricted' ? 'Restreint' : 'Privé'}
+                          </Badge>
+                          <Badge variant="outline" className="bg-green-50 text-green-700">Lien externe</Badge>
                         </div>
-                        <div className="text-sm text-gray-600">
-                          <div>{resource.downloads} accès</div>
-                          <div>{resource.views} vues</div>
+                        
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                          <span>Par {resource.author}</span>
+                          <Badge variant="outline">{resource.category}</Badge>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {resource.shared}
+                          </div>
+                        </div>
+                        
+                        <div className="flex gap-2 flex-wrap">
+                          {resource.tags.map((tag, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    
+                    <div className="text-right">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Button variant="outline" size="sm">
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Link className="w-4 h-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Share2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        <div>{resource.downloads} accès</div>
+                        <div>{resource.views} vues</div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+          {/* Pagination pour les liens */}
+          <Pagination
+            currentPage={linksPage}
+            totalPages={linksTotalPages}
+            totalItems={links.length}
+            itemsPerPage={6}
+            onPageChange={setLinksPage}
+          />
         </TabsContent>
 
         <TabsContent value="templates" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {filteredResources
-            .filter(resource => resource.category === 'Modèles')
-            .map((resource) => {
-              const TypeIcon = getTypeIcon(resource.type);
-              return (
-                <Card key={resource.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="pt-6">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-start gap-4 flex-1">
-                        <TypeIcon className="h-8 w-8 text-purple-600 mt-1" />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
-                              {resource.title}
-                            </h3>
-                            <Badge className={getAccessColor(resource.access)}>
-                              {resource.access === 'public' ? 'Public' : 
-                               resource.access === 'members' ? 'Membres' :
-                               resource.access === 'restricted' ? 'Restreint' : 'Privé'}
-                            </Badge>
-                            <Badge variant="outline" className="bg-purple-50 text-purple-700">Modèle</Badge>
-                          </div>
-                          
-                          <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                            <span>Par {resource.author}</span>
-                            <Badge variant="outline">{resource.category}</Badge>
-                            <div className="flex items-center gap-1">
-                              <Calendar className="w-4 h-4" />
-                              {resource.shared}
-                            </div>
-                            {resource.size !== '-' && <span className="font-medium">{resource.size}</span>}
-                          </div>
-                          
-                          <div className="flex gap-2 flex-wrap">
-                            {resource.tags.map((tag, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="text-right">
+          {paginatedTemplates.map((resource) => {
+            const TypeIcon = getTypeIcon(resource.type);
+            return (
+              <Card key={resource.id} className="hover:shadow-md transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-start gap-4 flex-1">
+                      <TypeIcon className="h-8 w-8 text-purple-600 mt-1" />
+                      <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Download className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Share2 className="w-4 h-4" />
-                          </Button>
+                          <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 cursor-pointer">
+                            {resource.title}
+                          </h3>
+                          <Badge className={getAccessColor(resource.access)}>
+                            {resource.access === 'public' ? 'Public' : 
+                             resource.access === 'members' ? 'Membres' :
+                             resource.access === 'restricted' ? 'Restreint' : 'Privé'}
+                          </Badge>
+                          <Badge variant="outline" className="bg-purple-50 text-purple-700">Modèle</Badge>
                         </div>
-                        <div className="text-sm text-gray-600">
-                          <div>{resource.downloads} téléchargements</div>
-                          <div>{resource.views} vues</div>
+                        
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                          <span>Par {resource.author}</span>
+                          <Badge variant="outline">{resource.category}</Badge>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {resource.shared}
+                          </div>
+                          {resource.size !== '-' && <span className="font-medium">{resource.size}</span>}
+                        </div>
+                        
+                        <div className="flex gap-2 flex-wrap">
+                          {resource.tags.map((tag, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    
+                    <div className="text-right">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Button variant="outline" size="sm">
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Download className="w-4 h-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Share2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        <div>{resource.downloads} téléchargements</div>
+                        <div>{resource.views} vues</div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+          {/* Pagination pour les modèles */}
+          <Pagination
+            currentPage={templatesPage}
+            totalPages={templatesTotalPages}
+            totalItems={templates.length}
+            itemsPerPage={6}
+            onPageChange={setTemplatesPage}
+          />
         </TabsContent>
       </Tabs>
 
