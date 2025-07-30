@@ -66,6 +66,70 @@ export function AdvancedMetrics() {
       deadline: "4 mois",
       impact: "Critique",
       automation: "Élevée"
+    },
+    {
+      alert: "Loi sur l'économie numérique - Article 45",
+      score: 8.1,
+      category: "Législatif",
+      deadline: "2 mois",
+      impact: "Élevé",
+      automation: "Moyenne"
+    },
+    {
+      alert: "Directive européenne - Protection des données",
+      score: 9.5,
+      category: "Réglementaire",
+      deadline: "1 mois",
+      impact: "Critique",
+      automation: "Élevée"
+    },
+    {
+      alert: "Jurisprudence - Contrats électroniques",
+      score: 5.8,
+      category: "Jurisprudentiel",
+      deadline: "8 mois",
+      impact: "Moyen",
+      automation: "Faible"
+    },
+    {
+      alert: "Norme ISO 9001 - Certification qualité",
+      score: 7.2,
+      category: "Norme",
+      deadline: "5 mois",
+      impact: "Élevé",
+      automation: "Moyenne"
+    },
+    {
+      alert: "Loi sur la cybersécurité - Nouvelles obligations",
+      score: 8.7,
+      category: "Législatif",
+      deadline: "3 mois",
+      impact: "Critique",
+      automation: "Élevée"
+    },
+    {
+      alert: "Directive - Transparence fiscale",
+      score: 6.9,
+      category: "Réglementaire",
+      deadline: "7 mois",
+      impact: "Moyen",
+      automation: "Moyenne"
+    },
+    {
+      alert: "Jurisprudence - Droit de la concurrence",
+      score: 5.3,
+      category: "Jurisprudentiel",
+      deadline: "10 mois",
+      impact: "Moyen",
+      automation: "Faible"
+    },
+    {
+      alert: "Norme ISO 14001 - Management environnemental",
+      score: 7.6,
+      category: "Norme",
+      deadline: "6 mois",
+      impact: "Élevé",
+      automation: "Moyenne"
     }
   ];
 
@@ -77,7 +141,15 @@ export function AdvancedMetrics() {
     { domain: "Droit environnemental", risk: 68, trend: "↗", incidents: 6 },
     { domain: "Sécurité informatique", risk: 88, trend: "↗", incidents: 18 },
     { domain: "Droit des contrats", risk: 55, trend: "→", incidents: 4 },
-    { domain: "Réglementation sectorielle", risk: 76, trend: "↗", incidents: 9 }
+    { domain: "Réglementation sectorielle", risk: 76, trend: "↗", incidents: 9 },
+    { domain: "Droit fiscal", risk: 82, trend: "↗", incidents: 11 },
+    { domain: "Droit des sociétés", risk: 63, trend: "→", incidents: 7 },
+    { domain: "Droit de la consommation", risk: 58, trend: "↘", incidents: 5 },
+    { domain: "Droit pénal", risk: 79, trend: "↗", incidents: 13 },
+    { domain: "Droit administratif", risk: 67, trend: "→", incidents: 8 },
+    { domain: "Droit international", risk: 73, trend: "↗", incidents: 10 },
+    { domain: "Droit bancaire", risk: 89, trend: "↗", incidents: 16 },
+    { domain: "Droit des assurances", risk: 51, trend: "↘", incidents: 4 }
   ];
 
   const benchmarkingData = [
@@ -115,6 +187,41 @@ export function AdvancedMetrics() {
       sectorAverage: "32 jours",
       performance: "Très bon",
       percentile: 89
+    },
+    {
+      metric: "Précision des alertes",
+      ourValue: "97.2%",
+      sectorAverage: "84.5%",
+      performance: "Excellent",
+      percentile: 96
+    },
+    {
+      metric: "Temps de traitement des documents",
+      ourValue: "1.8 heures",
+      sectorAverage: "3.2 heures",
+      performance: "Très bon",
+      percentile: 87
+    },
+    {
+      metric: "Taux de satisfaction utilisateur",
+      ourValue: "94.8%",
+      sectorAverage: "82.1%",
+      performance: "Excellent",
+      percentile: 93
+    },
+    {
+      metric: "Nombre d'incidents évités",
+      ourValue: "156/an",
+      sectorAverage: "89/an",
+      performance: "Excellent",
+      percentile: 91
+    },
+    {
+      metric: "Efficacité de l'automatisation",
+      ourValue: "87.3%",
+      sectorAverage: "65.7%",
+      performance: "Très bon",
+      percentile: 85
     }
   ];
 
@@ -399,6 +506,18 @@ export function AdvancedMetrics() {
                   </Card>
                 ))}
               </div>
+              {criticalityTotalPages > 1 && (
+                <div className="mt-6">
+                  <Pagination
+                    currentPage={criticalityPage}
+                    totalPages={criticalityTotalPages}
+                    totalItems={criticalityTotalItems}
+                    itemsPerPage={criticalityItemsPerPage}
+                    onPageChange={setCriticalityPage}
+                    onItemsPerPageChange={setCriticalityItemsPerPage}
+                  />
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -484,6 +603,18 @@ export function AdvancedMetrics() {
                   </Card>
                 ))}
               </div>
+              {riskTotalPages > 1 && (
+                <div className="mt-6">
+                  <Pagination
+                    currentPage={riskPage}
+                    totalPages={riskTotalPages}
+                    totalItems={riskTotalItems}
+                    itemsPerPage={riskItemsPerPage}
+                    onPageChange={setRiskPage}
+                    onItemsPerPageChange={setRiskItemsPerPage}
+                  />
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
