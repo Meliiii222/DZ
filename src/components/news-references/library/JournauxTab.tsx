@@ -27,6 +27,66 @@ export function JournauxTab() {
       pages: 30,
       category: "Légal",
       description: "Annonces légales et judiciaires"
+    },
+    {
+      id: 3,
+      title: "Bulletin Officiel des Marchés Publics",
+      author: "Ministère des Finances",
+      publisher: "Imprimerie Officielle",
+      year: "2024",
+      pages: 25,
+      category: "Marchés Publics",
+      description: "Publication des marchés publics"
+    },
+    {
+      id: 4,
+      title: "Bulletin Officiel des Sociétés",
+      author: "Centre National du Registre de Commerce",
+      publisher: "CNRC",
+      year: "2024",
+      pages: 40,
+      category: "Commerce",
+      description: "Annonces légales des sociétés"
+    },
+    {
+      id: 5,
+      title: "Bulletin Officiel des Propriétés Industrielles",
+      author: "Institut National Algérien de la Propriété Industrielle",
+      publisher: "INAPI",
+      year: "2024",
+      pages: 35,
+      category: "Propriété Industrielle",
+      description: "Brevets et marques déposées"
+    },
+    {
+      id: 6,
+      title: "Bulletin Officiel des Douanes",
+      author: "Direction Générale des Douanes",
+      publisher: "DGD",
+      year: "2024",
+      pages: 20,
+      category: "Douanes",
+      description: "Réglementation douanière"
+    },
+    {
+      id: 7,
+      title: "Bulletin Officiel de la Banque d'Algérie",
+      author: "Banque d'Algérie",
+      publisher: "BA",
+      year: "2024",
+      pages: 45,
+      category: "Banque",
+      description: "Réglementation bancaire et monétaire"
+    },
+    {
+      id: 8,
+      title: "Bulletin Officiel de l'Environnement",
+      author: "Ministère de l'Environnement",
+      publisher: "Imprimerie Officielle",
+      year: "2024",
+      pages: 30,
+      category: "Environnement",
+      description: "Réglementation environnementale"
     }
   ];
 

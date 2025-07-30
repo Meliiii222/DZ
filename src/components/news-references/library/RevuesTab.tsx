@@ -27,6 +27,86 @@ export function RevuesTab() {
       pages: 80,
       category: "Jurisprudence",
       description: "Recueil de jurisprudence des hautes juridictions"
+    },
+    {
+      id: 3,
+      title: "Revue de Droit Commercial",
+      author: "Chambre de Commerce",
+      publisher: "CCIA",
+      year: "2024",
+      pages: 95,
+      category: "Commercial",
+      description: "Actualités et analyses du droit commercial"
+    },
+    {
+      id: 4,
+      title: "Bulletin de Législation",
+      author: "Ministère de la Justice",
+      publisher: "Journal Officiel",
+      year: "2024",
+      pages: 60,
+      category: "Législation",
+      description: "Bulletin mensuel des nouvelles lois"
+    },
+    {
+      id: 5,
+      title: "Revue de Droit Social",
+      author: "CNAS",
+      publisher: "Caisse Nationale",
+      year: "2024",
+      pages: 85,
+      category: "Social",
+      description: "Études en droit social et sécurité sociale"
+    },
+    {
+      id: 6,
+      title: "Cahiers de Droit Fiscal",
+      author: "Ordre des Experts Comptables",
+      publisher: "OEC",
+      year: "2024",
+      pages: 110,
+      category: "Fiscal",
+      description: "Analyses fiscales et comptables"
+    },
+    {
+      id: 7,
+      title: "Revue de Droit Administratif",
+      author: "Conseil d'État",
+      publisher: "Publications Officielles",
+      year: "2023",
+      pages: 75,
+      category: "Administratif",
+      description: "Études en droit administratif"
+    },
+    {
+      id: 8,
+      title: "Bulletin de Jurisprudence Pénale",
+      author: "Cour Suprême",
+      publisher: "Publications Officielles",
+      year: "2024",
+      pages: 90,
+      category: "Pénal",
+      description: "Jurisprudence pénale commentée"
+    },
+    {
+      id: 9,
+      title: "Revue de Droit International",
+      author: "Université d'Oran",
+      publisher: "Faculté de Droit",
+      year: "2023",
+      pages: 100,
+      category: "International",
+      description: "Études en droit international"
+    },
+    {
+      id: 10,
+      title: "Cahiers de Droit Civil",
+      author: "Université de Constantine",
+      publisher: "Faculté de Droit",
+      year: "2024",
+      pages: 115,
+      category: "Civil",
+      description: "Recherches en droit civil"
     }
   ];
 
