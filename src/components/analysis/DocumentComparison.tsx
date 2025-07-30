@@ -309,19 +309,42 @@ export function DocumentComparison() {
           'Terminologie juridique variée',
           'Références légales distinctes',
           'Dates d\'entrée en vigueur différentes',
-          'Champs d\'application spécifiques'
+          'Champs d\'application spécifiques',
+          'Procédures d\'exécution divergentes',
+          'Sanctions et pénalités différentes',
+          'Organismes de contrôle distincts',
+          'Mécanismes de recours variés',
+          'Dispositions transitoires spécifiques',
+          'Annexes et documents complémentaires',
+          'Références bibliographiques distinctes'
         ],
         commonElements: [
           'Références à la Constitution algérienne',
           'Structure hiérarchique similaire',
           'Principes juridiques fondamentaux',
-          'Procédures d\'application communes'
+          'Procédures d\'application communes',
+          'Définitions légales partagées',
+          'Mécanismes de publication identiques',
+          'Dispositions d\'abrogation similaires',
+          'Références aux traités internationaux',
+          'Principes de non-rétroactivité',
+          'Mécanismes de coordination interministérielle',
+          'Dispositions de protection des droits',
+          'Procédures de modification communes'
         ],
         recommendations: [
           'Harmoniser la terminologie juridique',
           'Standardiser les références croisées',
           'Mettre à jour les dates de référence',
-          'Améliorer la cohérence structurelle'
+          'Améliorer la cohérence structurelle',
+          'Unifier les procédures d\'exécution',
+          'Harmoniser les sanctions et pénalités',
+          'Créer un organisme de contrôle unique',
+          'Standardiser les mécanismes de recours',
+          'Harmoniser les dispositions transitoires',
+          'Unifier les annexes et documents',
+          'Standardiser les références bibliographiques',
+          'Créer un index terminologique commun'
         ],
         analysisType: 'Analyse comparative automatisée'
       };
@@ -330,6 +353,48 @@ export function DocumentComparison() {
       setIsComparing(false);
     }, 3000);
   };
+
+  // Pagination pour les différences
+  const {
+    currentData: paginatedDifferences,
+    currentPage: differencesCurrentPage,
+    totalPages: differencesTotalPages,
+    itemsPerPage: differencesItemsPerPage,
+    totalItems: differencesTotalItems,
+    setCurrentPage: setDifferencesCurrentPage,
+    setItemsPerPage: setDifferencesItemsPerPage
+  } = usePagination({
+    data: comparisonResults?.differences || [],
+    itemsPerPage: 4
+  });
+
+  // Pagination pour les similitudes
+  const {
+    currentData: paginatedSimilarities,
+    currentPage: similaritiesCurrentPage,
+    totalPages: similaritiesTotalPages,
+    itemsPerPage: similaritiesItemsPerPage,
+    totalItems: similaritiesTotalItems,
+    setCurrentPage: setSimilaritiesCurrentPage,
+    setItemsPerPage: setSimilaritiesItemsPerPage
+  } = usePagination({
+    data: comparisonResults?.commonElements || [],
+    itemsPerPage: 4
+  });
+
+  // Pagination pour les recommandations
+  const {
+    currentData: paginatedRecommendations,
+    currentPage: recommendationsCurrentPage,
+    totalPages: recommendationsTotalPages,
+    itemsPerPage: recommendationsItemsPerPage,
+    totalItems: recommendationsTotalItems,
+    setCurrentPage: setRecommendationsCurrentPage,
+    setItemsPerPage: setRecommendationsItemsPerPage
+  } = usePagination({
+    data: comparisonResults?.recommendations || [],
+    itemsPerPage: 4
+  });
 
   const getTypeColor = (type: string) => {
     return type === 'legal' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800';
@@ -577,7 +642,7 @@ export function DocumentComparison() {
               </TabsContent>
 
               <TabsContent value="differences" className="space-y-3">
-                {comparisonResults.differences.map((difference, index) => (
+                {paginatedDifferences.map((difference, index) => (
                   <div key={index} className="flex items-start gap-3 p-3 border rounded-lg">
                     <AlertTriangle className="w-5 h-5 text-orange-600 mt-0.5" />
                     <div>
@@ -585,10 +650,22 @@ export function DocumentComparison() {
                     </div>
                   </div>
                 ))}
+                {differencesTotalPages > 1 && (
+                  <div className="mt-4">
+                    <Pagination
+                      currentPage={differencesCurrentPage}
+                      totalPages={differencesTotalPages}
+                      onPageChange={setDifferencesCurrentPage}
+                      itemsPerPage={differencesItemsPerPage}
+                      totalItems={differencesTotalItems}
+                      onItemsPerPageChange={setDifferencesItemsPerPage}
+                    />
+                  </div>
+                )}
               </TabsContent>
 
               <TabsContent value="similarities" className="space-y-3">
-                {comparisonResults.commonElements.map((element, index) => (
+                {paginatedSimilarities.map((element, index) => (
                   <div key={index} className="flex items-start gap-3 p-3 border rounded-lg">
                     <Check className="w-5 h-5 text-green-600 mt-0.5" />
                     <div>
@@ -596,10 +673,22 @@ export function DocumentComparison() {
                     </div>
                   </div>
                 ))}
+                {similaritiesTotalPages > 1 && (
+                  <div className="mt-4">
+                    <Pagination
+                      currentPage={similaritiesCurrentPage}
+                      totalPages={similaritiesTotalPages}
+                      onPageChange={setSimilaritiesCurrentPage}
+                      itemsPerPage={similaritiesItemsPerPage}
+                      totalItems={similaritiesTotalItems}
+                      onItemsPerPageChange={setSimilaritiesItemsPerPage}
+                    />
+                  </div>
+                )}
               </TabsContent>
 
               <TabsContent value="recommendations" className="space-y-3">
-                {comparisonResults.recommendations.map((recommendation, index) => (
+                {paginatedRecommendations.map((recommendation, index) => (
                   <div key={index} className="flex items-start gap-3 p-3 border rounded-lg">
                     <Info className="w-5 h-5 text-blue-600 mt-0.5" />
                     <div>
@@ -607,6 +696,18 @@ export function DocumentComparison() {
                     </div>
                   </div>
                 ))}
+                {recommendationsTotalPages > 1 && (
+                  <div className="mt-4">
+                    <Pagination
+                      currentPage={recommendationsCurrentPage}
+                      totalPages={recommendationsTotalPages}
+                      onPageChange={setRecommendationsCurrentPage}
+                      itemsPerPage={recommendationsItemsPerPage}
+                      totalItems={recommendationsTotalItems}
+                      onItemsPerPageChange={setRecommendationsItemsPerPage}
+                    />
+                  </div>
+                )}
               </TabsContent>
             </Tabs>
 
