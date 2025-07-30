@@ -3,11 +3,10 @@
  * Gère la validation et l'enregistrement des données extraites
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -45,17 +44,6 @@ interface ApprovalWorkflowProps {
   extractedData?: any;
   onApproval?: (approvedData: any) => void;
   onRejection?: (reason: string) => void;
-}
-
-interface ApprovalStep {
-  id: string;
-  title: string;
-  description: string;
-  status: 'pending' | 'in_progress' | 'completed' | 'failed';
-  assignee?: string;
-  dueDate?: string;
-  completedAt?: string;
-  notes?: string;
 }
 
 interface WorkflowDocument {
@@ -544,5 +532,3 @@ export function ApprovalWorkflowComponent({ extractedData, onApproval, onRejecti
     </div>
   );
 }
-
-export default ApprovalWorkflowComponent;
