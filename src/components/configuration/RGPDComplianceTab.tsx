@@ -585,6 +585,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
               onPageChange={setConsentsCurrentPage}
               itemsPerPage={consentsItemsPerPage}
               totalItems={consentsTotalItems}
+              onItemsPerPageChange={() => {}}
             />
           </div>
         </TabsContent>
@@ -654,6 +655,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
               onPageChange={setRightsRequestsCurrentPage}
               itemsPerPage={rightsRequestsItemsPerPage}
               totalItems={rightsRequestsTotalItems}
+              onItemsPerPageChange={() => {}}
             />
           </div>
         </TabsContent>
@@ -719,6 +721,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
               onPageChange={setDataBreachesCurrentPage}
               itemsPerPage={dataBreachesItemsPerPage}
               totalItems={dataBreachesTotalItems}
+              onItemsPerPageChange={() => {}}
             />
           </div>
         </TabsContent>
@@ -775,6 +778,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
               onPageChange={setProcessingActivitiesCurrentPage}
               itemsPerPage={processingActivitiesItemsPerPage}
               totalItems={processingActivitiesTotalItems}
+              onItemsPerPageChange={() => {}}
             />
           </div>
         </TabsContent>

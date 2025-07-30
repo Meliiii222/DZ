@@ -519,6 +519,7 @@ export function SecureFileSharing() {
             totalItems={documents.length}
             itemsPerPage={6}
             onPageChange={setDocumentsPage}
+            onItemsPerPageChange={() => {}}
           />
         </TabsContent>
 
@@ -592,6 +593,7 @@ export function SecureFileSharing() {
             totalItems={links.length}
             itemsPerPage={6}
             onPageChange={setLinksPage}
+            onItemsPerPageChange={() => {}}
           />
         </TabsContent>
 
@@ -666,6 +668,7 @@ export function SecureFileSharing() {
             totalItems={templates.length}
             itemsPerPage={6}
             onPageChange={setTemplatesPage}
+            onItemsPerPageChange={() => {}}
           />
         </TabsContent>
       </Tabs>
