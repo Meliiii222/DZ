@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Pagination } from '@/components/common/Pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { 
   History, 
   Search, 
@@ -148,6 +150,146 @@ const mockProcedureSearchVersions: ProcedureSearchVersion[] = [
     comments: 'Analyse en cours pour optimisation des procédures',
     searchDuration: '4.2s',
     lastAccessed: 'Il y a 6 heures'
+  },
+  {
+    id: '6',
+    searchQuery: 'Licence commerciale - Wilaya d\'Annaba',
+    version: 'v1.5',
+    date: '03/01/2024',
+    author: 'Samira Khelifi',
+    institution: 'Direction du Commerce',
+    type: 'Recherche',
+    changes: 'Recherche spécialisée sur les licences commerciales avec analyse des délais',
+    status: 'Actuelle',
+    category: 'Commercial',
+    wilaya: 'Annaba',
+    resultsCount: 56,
+    filtersUsed: 7,
+    impact: 'Standard',
+    validatedBy: 'Service Commercial',
+    comments: 'Recherche optimisée pour les PME',
+    searchDuration: '2.1s',
+    lastAccessed: 'Il y a 1 jour'
+  },
+  {
+    id: '7',
+    searchQuery: 'Certificat médical - Hôpital de Blida',
+    version: 'v1.8',
+    date: '01/01/2024',
+    author: 'Dr. Ali Mansouri',
+    institution: 'Hôpital de Blida',
+    type: 'Modification',
+    changes: 'Mise à jour des critères médicaux pour les certificats d\'aptitude',
+    status: 'Partagée',
+    category: 'Santé',
+    wilaya: 'Blida',
+    resultsCount: 78,
+    filtersUsed: 9,
+    impact: 'Majeur',
+    validatedBy: 'Direction Médicale',
+    comments: 'Nouveaux standards médicaux appliqués',
+    searchDuration: '3.5s',
+    lastAccessed: 'Il y a 4 heures'
+  },
+  {
+    id: '8',
+    searchQuery: 'Attestation de travail - Ministère du Travail',
+    version: 'v2.0',
+    date: '30/12/2023',
+    author: 'Nadia Bensalem',
+    institution: 'Ministère du Travail',
+    type: 'Sauvegarde',
+    changes: 'Sauvegarde de la recherche avec paramètres de filtrage avancés',
+    status: 'Privée',
+    category: 'Social',
+    wilaya: 'Alger',
+    resultsCount: 92,
+    filtersUsed: 11,
+    impact: 'Standard',
+    validatedBy: 'Auto-validation',
+    comments: 'Recherche personnalisée pour usage interne',
+    searchDuration: '2.8s',
+    lastAccessed: 'Il y a 2 jours'
+  },
+  {
+    id: '9',
+    searchQuery: 'Certificat de propriété - Conservateur d\'Oran',
+    version: 'v1.4',
+    date: '28/12/2023',
+    author: 'Omar Benchaabane',
+    institution: 'Conservateur des Hypothèques',
+    type: 'Export',
+    changes: 'Export des données de propriété avec historique complet',
+    status: 'Archivée',
+    category: 'Propriété',
+    wilaya: 'Oran',
+    resultsCount: 41,
+    filtersUsed: 5,
+    impact: 'Mineur',
+    validatedBy: 'Service Hypothèques',
+    comments: 'Export pour consultation juridique',
+    searchDuration: '1.9s',
+    lastAccessed: 'Il y a 1 semaine'
+  },
+  {
+    id: '10',
+    searchQuery: 'Attestation de domicile - Commune de Constantine',
+    version: 'v1.6',
+    date: '25/12/2023',
+    author: 'Leila Messaoudi',
+    institution: 'APC Constantine',
+    type: 'Analyse',
+    changes: 'Analyse des procédures de domiciliation avec statistiques',
+    status: 'En cours',
+    category: 'Administration',
+    wilaya: 'Constantine',
+    resultsCount: 67,
+    filtersUsed: 8,
+    impact: 'Standard',
+    validatedBy: 'En cours de validation',
+    comments: 'Analyse pour amélioration des services',
+    searchDuration: '3.7s',
+    lastAccessed: 'Il y a 3 jours'
+  },
+  {
+    id: '11',
+    searchQuery: 'Inscription universitaire - Université d\'Alger',
+    version: 'v1.9',
+    date: '22/12/2023',
+    author: 'Yacine Benmoussa',
+    institution: 'Université d\'Alger',
+    type: 'Recherche',
+    changes: 'Recherche sur les procédures d\'inscription avec critères académiques',
+    status: 'Actuelle',
+    category: 'Éducation',
+    wilaya: 'Alger',
+    resultsCount: 103,
+    filtersUsed: 13,
+    impact: 'Majeur',
+    validatedBy: 'Service Scolarité',
+    comments: 'Recherche pour orientation des étudiants',
+    searchDuration: '4.1s',
+    lastAccessed: 'Il y a 5 heures'
+  },
+  {
+    id: '12',
+    searchQuery: 'Certificat de conformité - Laboratoire d\'Essais',
+    version: 'v1.1',
+    date: '20/12/2023',
+    author: 'Rachid Hamidi',
+    institution: 'Laboratoire National d\'Essais',
+    type: 'Modification',
+    changes: 'Mise à jour des normes de conformité pour les produits industriels',
+    status: 'Partagée',
+    category: 'Industrie',
+    wilaya: 'Alger',
+    resultsCount: 34,
+    filtersUsed: 6,
+    impact: 'Standard',
+    validatedBy: 'Direction Technique',
+    comments: 'Nouvelles normes internationales appliquées',
+    searchDuration: '2.4s',
+    lastAccessed: 'Il y a 1 semaine'
   }
 ];
 
@@ -174,6 +316,20 @@ export function ProcedureSearchHistoryTab() {
     const matchesWilaya = !selectedWilaya || selectedWilaya === 'Tous' || version.wilaya === selectedWilaya;
     
     return matchesSearch && matchesCategory && matchesType && matchesStatus && matchesWilaya;
+  });
+
+  // Pagination pour l'historique des recherches
+  const {
+    currentData: paginatedVersions,
+    currentPage,
+    totalPages,
+    itemsPerPage,
+    totalItems,
+    setCurrentPage,
+    setItemsPerPage
+  } = usePagination({
+    data: filteredVersions,
+    itemsPerPage: 10
   });
 
   const getTypeColor = (type: string) => {
@@ -335,7 +491,7 @@ export function ProcedureSearchHistoryTab() {
         <Card>
           <CardContent className="p-4 text-center">
             <Search className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{filteredVersions.length}</p>
+            <p className="text-2xl font-bold text-gray-900">{totalItems}</p>
             <p className="text-sm text-gray-600">Recherches trouvées</p>
           </CardContent>
         </Card>
@@ -343,7 +499,7 @@ export function ProcedureSearchHistoryTab() {
           <CardContent className="p-4 text-center">
             <CheckCircle className="w-8 h-8 text-green-600 mx-auto mb-2" />
             <p className="text-2xl font-bold text-gray-900">
-              {filteredVersions.filter(v => v.status === 'Actuelle').length}
+              {paginatedVersions.filter(v => v.status === 'Actuelle').length}
             </p>
             <p className="text-sm text-gray-600">Actuelles</p>
           </CardContent>
@@ -352,7 +508,7 @@ export function ProcedureSearchHistoryTab() {
           <CardContent className="p-4 text-center">
             <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
             <p className="text-2xl font-bold text-gray-900">
-              {filteredVersions.filter(v => v.status === 'Partagée').length}
+              {paginatedVersions.filter(v => v.status === 'Partagée').length}
             </p>
             <p className="text-sm text-gray-600">Partagées</p>
           </CardContent>
@@ -361,7 +517,7 @@ export function ProcedureSearchHistoryTab() {
           <CardContent className="p-4 text-center">
             <Archive className="w-8 h-8 text-gray-600 mx-auto mb-2" />
             <p className="text-2xl font-bold text-gray-900">
-              {filteredVersions.filter(v => v.status === 'Archivée').length}
+              {paginatedVersions.filter(v => v.status === 'Archivée').length}
             </p>
             <p className="text-sm text-gray-600">Archivées</p>
           </CardContent>
@@ -370,7 +526,7 @@ export function ProcedureSearchHistoryTab() {
           <CardContent className="p-4 text-center">
             <Star className="w-8 h-8 text-orange-600 mx-auto mb-2" />
             <p className="text-2xl font-bold text-gray-900">
-              {filteredVersions.filter(v => v.impact === 'Majeur').length}
+              {paginatedVersions.filter(v => v.impact === 'Majeur').length}
             </p>
             <p className="text-sm text-gray-600">Impact majeur</p>
           </CardContent>
@@ -382,12 +538,12 @@ export function ProcedureSearchHistoryTab() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <History className="w-5 h-5 text-emerald-600" />
-            Historique des recherches ({filteredVersions.length} résultats)
+            Historique des recherches ({totalItems} résultats)
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {filteredVersions.map((version) => (
+            {paginatedVersions.map((version) => (
               <Card key={version.id} className="hover:shadow-lg transition-all duration-200 border-l-4 border-l-blue-500">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
@@ -513,13 +669,25 @@ export function ProcedureSearchHistoryTab() {
             ))}
           </div>
 
-          {filteredVersions.length === 0 && (
+          {totalItems === 0 && (
             <div className="text-center py-12">
               <History className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-gray-500 mb-2">Aucune recherche trouvée</h3>
               <p className="text-gray-400">Essayez de modifier vos critères de recherche</p>
             </div>
           )}
+          
+          {/* Pagination */}
+          <div className="mt-6">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={totalItems}
+              onItemsPerPageChange={setItemsPerPage}
+            />
+          </div>
         </CardContent>
       </Card>
     </div>
