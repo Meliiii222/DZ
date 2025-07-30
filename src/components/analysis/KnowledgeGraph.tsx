@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Pagination } from '@/components/ui/pagination';
+import { Pagination } from '@/components/common/Pagination';
 import { usePagination } from '@/hooks/usePagination';
 import { 
   Network, 

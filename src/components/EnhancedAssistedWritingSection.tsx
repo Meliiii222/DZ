@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { buttonHandlers } from '@/utils/buttonUtils';
 import { Badge } from '@/components/ui/badge';
-import { Pagination } from '@/components/ui/pagination';
+import { Pagination } from '@/components/common/Pagination';
 import { usePagination } from '@/hooks/usePagination';
 import { 
   FileText, 
