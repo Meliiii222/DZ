@@ -2,6 +2,8 @@ import { Search, MapPin, Bot, Bookmark, TrendingUp } from "lucide-react";
 import { SearchCard } from "../common/SearchCard";
 import { SavedItemsList } from "../common/SavedItemsList";
 import { PopularItemsList } from "../common/PopularItemsList";
+import { Pagination } from "@/components/common/Pagination";
+import { usePagination } from "@/hooks/usePagination";
 
 export function ProcedurePopularSearchesTab() {
   const searchCards = [
@@ -67,8 +69,94 @@ export function ProcedurePopularSearchesTab() {
       category: "Administration", 
       lastAccessed: "Il y a 2 jours",
       authority: "Commune de Constantine"
+    },
+    {
+      id: 5,
+      title: "Demande de carte d'identité",
+      date: "4 jan 2025",
+      results: 189,
+      category: "Identité",
+      lastAccessed: "Il y a 4 jours",
+      authority: "Wilaya d'Oran"
+    },
+    {
+      id: 6,
+      title: "Acte de naissance en ligne",
+      date: "2 jan 2025",
+      results: 312,
+      category: "État civil",
+      lastAccessed: "Il y a 1 jour",
+      authority: "Commune d'Alger"
+    },
+    {
+      id: 7,
+      title: "Permis de conduire catégorie B",
+      date: "30 déc 2024",
+      results: 145,
+      category: "Transport",
+      lastAccessed: "Il y a 3 jours",
+      authority: "Wilaya de Constantine"
+    },
+    {
+      id: 8,
+      title: "Création d'entreprise SARL",
+      date: "28 déc 2024",
+      results: 78,
+      category: "Commercial",
+      lastAccessed: "Il y a 1 semaine",
+      authority: "CNRC"
+    },
+    {
+      id: 9,
+      title: "Certificat de scolarité",
+      date: "26 déc 2024",
+      results: 267,
+      category: "Éducation",
+      lastAccessed: "Il y a 2 jours",
+      authority: "Ministère de l'Éducation"
+    },
+    {
+      id: 10,
+      title: "Attestation de travail",
+      date: "24 déc 2024",
+      results: 198,
+      category: "Travail",
+      lastAccessed: "Il y a 5 jours",
+      authority: "Ministère du Travail"
+    },
+    {
+      id: 11,
+      title: "Certificat de propriété",
+      date: "22 déc 2024",
+      results: 89,
+      category: "Propriété",
+      lastAccessed: "Il y a 1 semaine",
+      authority: "Conservation foncière"
+    },
+    {
+      id: 12,
+      title: "Demande de logement social",
+      date: "20 déc 2024",
+      results: 345,
+      category: "Logement",
+      lastAccessed: "Il y a 3 jours",
+      authority: "Ministère de l'Habitat"
     }
   ];
+
+  // Pagination pour les recherches sauvegardées
+  const {
+    currentData: paginatedSavedSearches,
+    currentPage: savedSearchesCurrentPage,
+    totalPages: savedSearchesTotalPages,
+    itemsPerPage: savedSearchesItemsPerPage,
+    totalItems: savedSearchesTotalItems,
+    setCurrentPage: setSavedSearchesCurrentPage,
+    setItemsPerPage: setSavedSearchesItemsPerPage
+  } = usePagination({
+    data: savedProcedureSearches,
+    itemsPerPage: 6
+  });
 
   const popularProcedures = [
     {
@@ -134,8 +222,54 @@ export function ProcedurePopularSearchesTab() {
       wilaya: "National",
       trend: "+14%",
       description: "Attestation de scolarité"
+    },
+    {
+      query: "Attestation de travail",
+      count: "22,345 recherches",
+      category: "Travail",
+      wilaya: "National",
+      trend: "+16%",
+      description: "Certificat d'emploi"
+    },
+    {
+      query: "Certificat de propriété",
+      count: "19,678 recherches",
+      category: "Propriété",
+      wilaya: "National",
+      trend: "+9%",
+      description: "Attestation de propriété foncière"
+    },
+    {
+      query: "Demande de logement social",
+      count: "18,234 recherches",
+      category: "Logement",
+      wilaya: "National",
+      trend: "+20%",
+      description: "Demande de logement social"
+    },
+    {
+      query: "Certificat de mariage",
+      count: "16,789 recherches",
+      category: "État civil",
+      wilaya: "National",
+      trend: "+7%",
+      description: "Extrait d'acte de mariage"
     }
   ];
+
+  // Pagination pour les procédures populaires
+  const {
+    currentData: paginatedPopularProcedures,
+    currentPage: popularProceduresCurrentPage,
+    totalPages: popularProceduresTotalPages,
+    itemsPerPage: popularProceduresItemsPerPage,
+    totalItems: popularProceduresTotalItems,
+    setCurrentPage: setPopularProceduresCurrentPage,
+    setItemsPerPage: setPopularProceduresItemsPerPage
+  } = usePagination({
+    data: popularProcedures,
+    itemsPerPage: 6
+  });
 
   const statistics = {
     monthlySearches: "850K",
@@ -150,8 +284,31 @@ export function ProcedurePopularSearchesTab() {
         title="Procédures administratives populaires"
         description="Les procédures les plus recherchées par les citoyens algériens"
         icon={TrendingUp}
-        items={popularProcedures}
+        items={paginatedPopularProcedures}
         statistics={statistics}
+        pagination={{
+          currentPage: popularProceduresCurrentPage,
+          totalPages: popularProceduresTotalPages,
+          totalItems: popularProceduresTotalItems,
+          itemsPerPage: popularProceduresItemsPerPage,
+          onPageChange: setPopularProceduresCurrentPage,
+          onItemsPerPageChange: setPopularProceduresItemsPerPage
+        }}
+      />
+      
+      <SavedItemsList
+        title="Recherches sauvegardées"
+        description="Vos recherches récentes et favoris"
+        icon={Bookmark}
+        items={paginatedSavedSearches}
+        pagination={{
+          currentPage: savedSearchesCurrentPage,
+          totalPages: savedSearchesTotalPages,
+          totalItems: savedSearchesTotalItems,
+          itemsPerPage: savedSearchesItemsPerPage,
+          onPageChange: setSavedSearchesCurrentPage,
+          onItemsPerPageChange: setSavedSearchesItemsPerPage
+        }}
       />
     </div>
   );
