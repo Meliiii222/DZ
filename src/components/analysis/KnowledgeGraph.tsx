@@ -226,37 +226,46 @@ export function KnowledgeGraph() {
 
   // Pagination pour les nœuds
   const {
-    data: paginatedNodes,
+    currentData: paginatedNodes,
     currentPage: nodesPage,
     totalPages: nodesTotalPages,
     goToPage: goToNodesPage,
-    goToNextPage: goToNextNodesPage,
-    goToPreviousPage: goToPreviousNodesPage,
+    nextPage: goToNextNodesPage,
+    prevPage: goToPreviousNodesPage,
     totalItems: nodesTotalItems
-  } = usePagination(nodes, 4);
+  } = usePagination({
+    data: nodes,
+    itemsPerPage: 4
+  });
 
   // Pagination pour les relations
   const {
-    data: paginatedRelations,
+    currentData: paginatedRelations,
     currentPage: relationsPage,
     totalPages: relationsTotalPages,
     goToPage: goToRelationsPage,
-    goToNextPage: goToNextRelationsPage,
-    goToPreviousPage: goToPreviousRelationsPage,
+    nextPage: goToNextRelationsPage,
+    prevPage: goToPreviousRelationsPage,
     totalItems: relationsTotalItems
-  } = usePagination(relations, 4);
+  } = usePagination({
+    data: relations,
+    itemsPerPage: 4
+  });
 
   // Pagination pour l'analyse de centralité
   const sortedNodesByCentrality = nodes.sort((a, b) => b.connections - a.connections);
   const {
-    data: paginatedCentralityAnalysis,
+    currentData: paginatedCentralityAnalysis,
     currentPage: centralityPage,
     totalPages: centralityTotalPages,
     goToPage: goToCentralityPage,
-    goToNextPage: goToNextCentralityPage,
-    goToPreviousPage: goToPreviousCentralityPage,
+    nextPage: goToNextCentralityPage,
+    prevPage: goToPreviousCentralityPage,
     totalItems: centralityTotalItems
-  } = usePagination(sortedNodesByCentrality, 5);
+  } = usePagination({
+    data: sortedNodesByCentrality,
+    itemsPerPage: 5
+  });
 
   const getNodeColor = (type: string) => {
     switch (type) {
