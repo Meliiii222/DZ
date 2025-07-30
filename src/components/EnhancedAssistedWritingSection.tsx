@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { buttonHandlers } from '@/utils/buttonUtils';
 import { Badge } from '@/components/ui/badge';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { 
   FileText, 
   Book, 
@@ -33,6 +35,93 @@ import { SectionHeader } from './common/SectionHeader';
 
 export function EnhancedAssistedWritingSection() {
   const [activeSection, setActiveSection] = useState('overview');
+
+  // Données d'activité récente étendues
+  const recentActivities = [
+    {
+      action: "Génération d'un contrat de travail",
+      time: "Il y a 1 heure",
+      status: "Terminé",
+      user: "Système IA"
+    },
+    {
+      action: "Consolidation du Code civil algérien",
+      time: "Il y a 2 heures",
+      status: "Terminé",
+      user: "Système automatique"
+    },
+    {
+      action: "Mise à jour des procédures de l'état civil",
+      time: "Il y a 4 heures", 
+      status: "En cours",
+      user: "Ahmed Benali"
+    },
+    {
+      action: "Génération rapport mensuel",
+      time: "Il y a 6 heures",
+      status: "Terminé",
+      user: "Système automatique"
+    },
+    {
+      action: "Consolidation des textes fiscaux",
+      time: "Il y a 1 jour",
+      status: "Terminé",
+      user: "Fatima Cherif"
+    },
+    {
+      action: "Rédaction d'un avis juridique",
+      time: "Il y a 1 jour",
+      status: "Terminé",
+      user: "Système IA"
+    },
+    {
+      action: "Mise à jour du Code de commerce",
+      time: "Il y a 2 jours",
+      status: "Terminé",
+      user: "Système automatique"
+    },
+    {
+      action: "Génération d'un acte de vente",
+      time: "Il y a 2 jours",
+      status: "En cours",
+      user: "Karim Boudiaf"
+    },
+    {
+      action: "Consolidation des décrets exécutifs",
+      time: "Il y a 3 jours",
+      status: "Terminé",
+      user: "Système automatique"
+    },
+    {
+      action: "Rédaction d'un bail commercial",
+      time: "Il y a 3 jours",
+      status: "Terminé",
+      user: "Système IA"
+    },
+    {
+      action: "Mise à jour des procédures douanières",
+      time: "Il y a 4 jours",
+      status: "Terminé",
+      user: "Leila Mansouri"
+    },
+    {
+      action: "Génération d'un contrat de mariage",
+      time: "Il y a 4 jours",
+      status: "Terminé",
+      user: "Système IA"
+    }
+  ];
+
+  // Pagination pour l'activité récente
+  const {
+    data: paginatedActivities,
+    currentPage: activitiesPage,
+    totalPages: activitiesTotalPages,
+    goToPage: goToActivitiesPage,
+    goToNextPage: goToNextActivitiesPage,
+    goToPreviousPage: goToPreviousActivitiesPage,
+    totalItems: activitiesTotalItems
+  } = usePagination(recentActivities, 4);
 
   const renderOverview = () => (
     <div className="space-y-6">
@@ -308,38 +397,7 @@ export function EnhancedAssistedWritingSection() {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {[
-              {
-                action: "Génération d'un contrat de travail",
-                time: "Il y a 1 heure",
-                status: "Terminé",
-                user: "Système IA"
-              },
-              {
-                action: "Consolidation du Code civil algérien",
-                time: "Il y a 2 heures",
-                status: "Terminé",
-                user: "Système automatique"
-              },
-              {
-                action: "Mise à jour des procédures de l'état civil",
-                time: "Il y a 4 heures", 
-                status: "En cours",
-                user: "Ahmed Benali"
-              },
-              {
-                action: "Génération rapport mensuel",
-                time: "Il y a 6 heures",
-                status: "Terminé",
-                user: "Système automatique"
-              },
-              {
-                action: "Consolidation des textes fiscaux",
-                time: "Il y a 1 jour",
-                status: "Terminé",
-                user: "Fatima Cherif"
-              }
-            ].map((activity, index) => (
+            {paginatedActivities.map((activity, index) => (
               <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-900">{activity.action}</h4>
@@ -359,6 +417,11 @@ export function EnhancedAssistedWritingSection() {
                 </Badge>
               </div>
             ))}
+            <Pagination
+              currentPage={activitiesPage}
+              totalPages={activitiesTotalPages}
+              onPageChange={goToActivitiesPage}
+            />
           </div>
         </CardContent>
       </Card>
