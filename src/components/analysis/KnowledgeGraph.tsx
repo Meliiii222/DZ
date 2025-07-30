@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { 
   Network, 
   GitBranch, 
@@ -28,7 +30,6 @@ export function KnowledgeGraph() {
   const [showView3D, setShowView3D] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [nodes, setNodes] = useState([
-
     {
       id: 'constitution',
       title: 'Constitution Algérienne',
@@ -76,6 +77,54 @@ export function KnowledgeGraph() {
       connections: 28,
       lastUpdated: '2022-09-14',
       importance: 'high'
+    },
+    {
+      id: 'code-commerce',
+      title: 'Code de Commerce',
+      type: 'Code',
+      connections: 45,
+      lastUpdated: '2023-08-20',
+      importance: 'medium'
+    },
+    {
+      id: 'loi-budget',
+      title: 'Loi de Budget 2023',
+      type: 'Loi',
+      connections: 23,
+      lastUpdated: '2023-12-01',
+      importance: 'medium'
+    },
+    {
+      id: 'decret-impot',
+      title: 'Décret Fiscal 24-001',
+      type: 'Décret',
+      connections: 18,
+      lastUpdated: '2024-02-15',
+      importance: 'medium'
+    },
+    {
+      id: 'code-travail',
+      title: 'Code du Travail',
+      type: 'Code',
+      connections: 56,
+      lastUpdated: '2023-05-10',
+      importance: 'high'
+    },
+    {
+      id: 'loi-sante',
+      title: 'Loi sur la Santé Publique',
+      type: 'Loi',
+      connections: 31,
+      lastUpdated: '2023-09-25',
+      importance: 'medium'
+    },
+    {
+      id: 'decret-education',
+      title: 'Décret sur l\'Éducation',
+      type: 'Décret',
+      connections: 22,
+      lastUpdated: '2024-01-30',
+      importance: 'medium'
     }
   ]);
 
@@ -116,8 +165,98 @@ export function KnowledgeGraph() {
       to: 'decret-exec',
       type: 'précise',
       strength: 0.7
+    },
+    {
+      id: 5,
+      from: 'code-civil',
+      to: 'code-commerce',
+      type: 'complète',
+      strength: 0.5
+    },
+    {
+      id: 6,
+      from: 'code-penal',
+      to: 'loi-budget',
+      type: 'influence',
+      strength: 0.4
+    },
+    {
+      id: 7,
+      from: 'fonction-publique',
+      to: 'code-travail',
+      type: 'fonde',
+      strength: 0.8
+    },
+    {
+      id: 8,
+      from: 'loi-sante',
+      to: 'decret-education',
+      type: 'précise',
+      strength: 0.6
+    },
+    {
+      id: 9,
+      from: 'code-commerce',
+      to: 'decret-impot',
+      type: 'influence',
+      strength: 0.7
+    },
+    {
+      id: 10,
+      from: 'constitution',
+      to: 'loi-sante',
+      type: 'fonde',
+      strength: 0.9
+    },
+    {
+      id: 11,
+      from: 'code-travail',
+      to: 'decret-exec',
+      type: 'complète',
+      strength: 0.5
+    },
+    {
+      id: 12,
+      from: 'loi-finance',
+      to: 'decret-impot',
+      type: 'précise',
+      strength: 0.8
     }
   ];
+
+  // Pagination pour les nœuds
+  const {
+    data: paginatedNodes,
+    currentPage: nodesPage,
+    totalPages: nodesTotalPages,
+    goToPage: goToNodesPage,
+    goToNextPage: goToNextNodesPage,
+    goToPreviousPage: goToPreviousNodesPage,
+    totalItems: nodesTotalItems
+  } = usePagination(nodes, 4);
+
+  // Pagination pour les relations
+  const {
+    data: paginatedRelations,
+    currentPage: relationsPage,
+    totalPages: relationsTotalPages,
+    goToPage: goToRelationsPage,
+    goToNextPage: goToNextRelationsPage,
+    goToPreviousPage: goToPreviousRelationsPage,
+    totalItems: relationsTotalItems
+  } = usePagination(relations, 4);
+
+  // Pagination pour l'analyse de centralité
+  const sortedNodesByCentrality = nodes.sort((a, b) => b.connections - a.connections);
+  const {
+    data: paginatedCentralityAnalysis,
+    currentPage: centralityPage,
+    totalPages: centralityTotalPages,
+    goToPage: goToCentralityPage,
+    goToNextPage: goToNextCentralityPage,
+    goToPreviousPage: goToPreviousCentralityPage,
+    totalItems: centralityTotalItems
+  } = usePagination(sortedNodesByCentrality, 5);
 
   const getNodeColor = (type: string) => {
     switch (type) {
@@ -293,7 +432,7 @@ export function KnowledgeGraph() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {nodes.map((node) => (
+                {paginatedNodes.map((node) => (
                   <div 
                     key={node.id} 
                     className={`p-4 border rounded-lg cursor-pointer transition-colors ${
@@ -326,6 +465,11 @@ export function KnowledgeGraph() {
                     </div>
                   </div>
                 ))}
+                <Pagination
+                  currentPage={nodesPage}
+                  totalPages={nodesTotalPages}
+                  onPageChange={goToNodesPage}
+                />
               </div>
             </CardContent>
           </Card>
@@ -338,7 +482,7 @@ export function KnowledgeGraph() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {relations.map((relation) => {
+                {paginatedRelations.map((relation) => {
                   const fromNode = nodes.find(n => n.id === relation.from);
                   const toNode = nodes.find(n => n.id === relation.to);
                   return (
@@ -362,6 +506,11 @@ export function KnowledgeGraph() {
                     </div>
                   );
                 })}
+                <Pagination
+                  currentPage={relationsPage}
+                  totalPages={relationsTotalPages}
+                  onPageChange={goToRelationsPage}
+                />
               </div>
             </CardContent>
           </Card>
@@ -401,18 +550,20 @@ export function KnowledgeGraph() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {nodes
-                    .sort((a, b) => b.connections - a.connections)
-                    .slice(0, 3)
-                    .map((node, index) => (
-                      <div key={node.id} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Badge variant="outline">{index + 1}</Badge>
-                          <span className="text-sm">{node.title}</span>
-                        </div>
-                        <span className="text-sm font-medium">{node.connections} connexions</span>
+                  {paginatedCentralityAnalysis.map((node, index) => (
+                    <div key={node.id} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline">{index + 1}</Badge>
+                        <span className="text-sm">{node.title}</span>
                       </div>
-                    ))}
+                      <span className="text-sm font-medium">{node.connections} connexions</span>
+                    </div>
+                  ))}
+                  <Pagination
+                    currentPage={centralityPage}
+                    totalPages={centralityTotalPages}
+                    onPageChange={goToCentralityPage}
+                  />
                 </div>
               </CardContent>
             </Card>
