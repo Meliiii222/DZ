@@ -53,7 +53,14 @@ export function PerformanceScalabilitySection({ language = "fr" }: PerformanceSc
     { name: "Legal Service", status: "running", instances: 4, cpu: 38, memory: 55, version: "v1.8.2" },
     { name: "Search Service", status: "running", instances: 2, cpu: 67, memory: 71, version: "v3.0.1" },
     { name: "Document Service", status: "running", instances: 3, cpu: 52, memory: 48, version: "v1.5.4" },
-    { name: "Notification Service", status: "running", instances: 2, cpu: 23, memory: 35, version: "v2.0.0" }
+    { name: "Notification Service", status: "running", instances: 2, cpu: 23, memory: 35, version: "v2.0.0" },
+    { name: "Analytics Service", status: "running", instances: 2, cpu: 78, memory: 82, version: "v1.2.3" },
+    { name: "OCR Service", status: "running", instances: 3, cpu: 89, memory: 91, version: "v2.3.1" },
+    { name: "API Gateway", status: "running", instances: 2, cpu: 34, memory: 41, version: "v1.9.0" },
+    { name: "User Management", status: "running", instances: 2, cpu: 28, memory: 33, version: "v1.6.2" },
+    { name: "File Storage", status: "running", instances: 3, cpu: 56, memory: 67, version: "v2.0.5" },
+    { name: "Reporting Service", status: "running", instances: 2, cpu: 71, memory: 76, version: "v1.4.8" },
+    { name: "Integration Service", status: "running", instances: 2, cpu: 42, memory: 49, version: "v1.7.3" }
   ];
 
   const getStatusColor = (status: string) => {
