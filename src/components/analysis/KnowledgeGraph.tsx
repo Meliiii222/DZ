@@ -477,7 +477,10 @@ export function KnowledgeGraph() {
                 <Pagination
                   currentPage={nodesPage}
                   totalPages={nodesTotalPages}
+                  totalItems={nodesTotalItems}
+                  itemsPerPage={4}
                   onPageChange={goToNodesPage}
+                  onItemsPerPageChange={() => {}}
                 />
               </div>
             </CardContent>
@@ -518,7 +521,10 @@ export function KnowledgeGraph() {
                 <Pagination
                   currentPage={relationsPage}
                   totalPages={relationsTotalPages}
+                  totalItems={relationsTotalItems}
+                  itemsPerPage={4}
                   onPageChange={goToRelationsPage}
+                  onItemsPerPageChange={() => {}}
                 />
               </div>
             </CardContent>
@@ -571,7 +577,10 @@ export function KnowledgeGraph() {
                   <Pagination
                     currentPage={centralityPage}
                     totalPages={centralityTotalPages}
+                    totalItems={centralityTotalItems}
+                    itemsPerPage={5}
                     onPageChange={goToCentralityPage}
+                    onItemsPerPageChange={() => {}}
                   />
                 </div>
               </CardContent>
