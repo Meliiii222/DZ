@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
+import { Pagination } from "@/components/common/Pagination";
+import { usePagination } from "@/hooks/usePagination";
 import { 
   Shield, 
   FileCheck, 
@@ -71,6 +73,87 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
       date: "2025-01-05", 
       expiry: "2025-07-05",
       source: "Formulaire"
+    },
+    { 
+      id: "4", 
+      user: "client@business.dz", 
+      purpose: "Télémarketing", 
+      status: "Accordé", 
+      date: "2025-01-20", 
+      expiry: "2025-07-20",
+      source: "Appel téléphonique"
+    },
+    { 
+      id: "5", 
+      user: "employee@company.dz", 
+      purpose: "Traitement RH", 
+      status: "Accordé", 
+      date: "2025-01-12", 
+      expiry: "2026-01-12",
+      source: "Contrat de travail"
+    },
+    { 
+      id: "6", 
+      user: "visitor@site.dz", 
+      purpose: "Cookies Publicitaires", 
+      status: "Refusé", 
+      date: "2025-01-18", 
+      expiry: "-",
+      source: "Cookie Banner"
+    },
+    { 
+      id: "7", 
+      user: "partner@collaboration.dz", 
+      purpose: "Partage de données", 
+      status: "Accordé", 
+      date: "2025-01-08", 
+      expiry: "2025-12-08",
+      source: "Accord de partenariat"
+    },
+    { 
+      id: "8", 
+      user: "supplier@vendor.dz", 
+      purpose: "Gestion fournisseurs", 
+      status: "Accordé", 
+      date: "2025-01-14", 
+      expiry: "2026-01-14",
+      source: "Contrat fournisseur"
+    },
+    { 
+      id: "9", 
+      user: "customer@service.dz", 
+      purpose: "Support client", 
+      status: "Accordé", 
+      date: "2025-01-16", 
+      expiry: "2025-07-16",
+      source: "Formulaire contact"
+    },
+    { 
+      id: "10", 
+      user: "analyst@research.dz", 
+      purpose: "Études de marché", 
+      status: "Refusé", 
+      date: "2025-01-22", 
+      expiry: "-",
+      source: "Enquête en ligne"
+    },
+    { 
+      id: "11", 
+      user: "student@education.dz", 
+      purpose: "Formation en ligne", 
+      status: "Accordé", 
+      date: "2025-01-19", 
+      expiry: "2025-12-19",
+      source: "Inscription formation"
+    },
+    { 
+      id: "12", 
+      user: "member@association.dz", 
+      purpose: "Communication associative", 
+      status: "Accordé", 
+      date: "2025-01-21", 
+      expiry: "2026-01-21",
+      source: "Adhésion association"
     }
   ].filter(consent => 
     consent.user.toLowerCase().includes(consentSearch.toLowerCase()) ||
@@ -105,6 +188,69 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
       date: "2025-01-22",
       deadline: "2025-02-22",
       assignee: "Non assigné"
+    },
+    { 
+      id: "R004", 
+      type: "Portabilité", 
+      user: "sarah.ouled@company.dz", 
+      status: "En cours", 
+      date: "2025-01-21",
+      deadline: "2025-02-21",
+      assignee: "IT Team"
+    },
+    { 
+      id: "R005", 
+      type: "Limitation", 
+      user: "mohamed.khelifi@business.dz", 
+      status: "Terminé", 
+      date: "2025-01-17",
+      deadline: "2025-02-17",
+      assignee: "DPO"
+    },
+    { 
+      id: "R006", 
+      type: "Opposition", 
+      user: "fatima.cherif@service.dz", 
+      status: "Nouveau", 
+      date: "2025-01-23",
+      deadline: "2025-02-23",
+      assignee: "Non assigné"
+    },
+    { 
+      id: "R007", 
+      type: "Accès aux données", 
+      user: "karim.boudiaf@education.dz", 
+      status: "En cours", 
+      date: "2025-01-19",
+      deadline: "2025-02-19",
+      assignee: "Legal Team"
+    },
+    { 
+      id: "R008", 
+      type: "Suppression", 
+      user: "leila.mansouri@health.dz", 
+      status: "Terminé", 
+      date: "2025-01-16",
+      deadline: "2025-02-16",
+      assignee: "Admin"
+    },
+    { 
+      id: "R009", 
+      type: "Rectification", 
+      user: "omar.tlemcani@finance.dz", 
+      status: "Nouveau", 
+      date: "2025-01-24",
+      deadline: "2025-02-24",
+      assignee: "Non assigné"
+    },
+    { 
+      id: "R010", 
+      type: "Portabilité", 
+      user: "amina.benali@tech.dz", 
+      status: "En cours", 
+      date: "2025-01-20",
+      deadline: "2025-02-20",
+      assignee: "IT Team"
     }
   ].filter(request => 
     request.user.toLowerCase().includes(rightsRequestSearch.toLowerCase()) ||
@@ -130,6 +276,60 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
       status: "Résolu",
       affectedUsers: 5,
       reportedBy: "Utilisateur"
+    },
+    { 
+      id: "B003", 
+      severity: "Critique", 
+      description: "Vol de données personnelles", 
+      date: "2025-01-12",
+      status: "Enquête en cours",
+      affectedUsers: 250,
+      reportedBy: "Sécurité"
+    },
+    { 
+      id: "B004", 
+      severity: "Faible", 
+      description: "Perte d'un document papier", 
+      date: "2025-01-08",
+      status: "Résolu",
+      affectedUsers: 1,
+      reportedBy: "Employé"
+    },
+    { 
+      id: "B005", 
+      severity: "Moyen", 
+      description: "Exposition de données sur serveur", 
+      date: "2025-01-14",
+      status: "Corrigé",
+      affectedUsers: 45,
+      reportedBy: "Audit"
+    },
+    { 
+      id: "B006", 
+      severity: "Élevé", 
+      description: "Attaque par ransomware", 
+      date: "2025-01-11",
+      status: "En cours de résolution",
+      affectedUsers: 300,
+      reportedBy: "Système"
+    },
+    { 
+      id: "B007", 
+      severity: "Faible", 
+      description: "Envoi en copie par erreur", 
+      date: "2025-01-09",
+      status: "Résolu",
+      affectedUsers: 3,
+      reportedBy: "Utilisateur"
+    },
+    { 
+      id: "B008", 
+      severity: "Moyen", 
+      description: "Accès non autorisé aux logs", 
+      date: "2025-01-13",
+      status: "Investigué",
+      affectedUsers: 75,
+      reportedBy: "Monitoring"
     }
   ];
 
@@ -158,8 +358,120 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
       retention: "3 ans",
       legalBasis: "Intérêt légitime",
       lastReview: "2024-10-20"
+    },
+    { 
+      name: "Facturation", 
+      purpose: "Gestion des paiements", 
+      dataTypes: "Nom, Adresse, IBAN", 
+      retention: "10 ans",
+      legalBasis: "Obligation légale",
+      lastReview: "2024-12-10"
+    },
+    { 
+      name: "Formation", 
+      purpose: "Développement des compétences", 
+      dataTypes: "Nom, Résultats, Évaluations", 
+      retention: "3 ans",
+      legalBasis: "Intérêt légitime",
+      lastReview: "2024-11-30"
+    },
+    { 
+      name: "Sécurité", 
+      purpose: "Protection des systèmes", 
+      dataTypes: "IP, Logs, Timestamps", 
+      retention: "1 an",
+      legalBasis: "Intérêt légitime",
+      lastReview: "2024-12-05"
+    },
+    { 
+      name: "Analytics", 
+      purpose: "Amélioration des services", 
+      dataTypes: "Comportement, Préférences", 
+      retention: "2 ans",
+      legalBasis: "Consentement",
+      lastReview: "2024-11-25"
+    },
+    { 
+      name: "Recrutement", 
+      purpose: "Sélection des candidats", 
+      dataTypes: "CV, Diplômes, Références", 
+      retention: "2 ans",
+      legalBasis: "Intérêt légitime",
+      lastReview: "2024-12-15"
+    },
+    { 
+      name: "Fournisseurs", 
+      purpose: "Gestion des partenaires", 
+      dataTypes: "Contact, Factures, Contrats", 
+      retention: "5 ans",
+      legalBasis: "Contrat",
+      lastReview: "2024-11-20"
+    },
+    { 
+      name: "Santé", 
+      purpose: "Suivi médical", 
+      dataTypes: "Dossier médical, Certificats", 
+      retention: "20 ans",
+      legalBasis: "Obligation légale",
+      lastReview: "2024-12-20"
     }
   ];
+
+  // Pagination pour les consentements
+  const {
+    currentData: paginatedConsents,
+    currentPage: consentsCurrentPage,
+    totalPages: consentsTotalPages,
+    itemsPerPage: consentsItemsPerPage,
+    totalItems: consentsTotalItems,
+    setCurrentPage: setConsentsCurrentPage,
+    setItemsPerPage: setConsentsItemsPerPage
+  } = usePagination({
+    data: consents,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les demandes de droits
+  const {
+    currentData: paginatedRightsRequests,
+    currentPage: rightsRequestsCurrentPage,
+    totalPages: rightsRequestsTotalPages,
+    itemsPerPage: rightsRequestsItemsPerPage,
+    totalItems: rightsRequestsTotalItems,
+    setCurrentPage: setRightsRequestsCurrentPage,
+    setItemsPerPage: setRightsRequestsItemsPerPage
+  } = usePagination({
+    data: rightsRequests,
+    itemsPerPage: 5
+  });
+
+  // Pagination pour les violations de données
+  const {
+    currentData: paginatedDataBreaches,
+    currentPage: dataBreachesCurrentPage,
+    totalPages: dataBreachesTotalPages,
+    itemsPerPage: dataBreachesItemsPerPage,
+    totalItems: dataBreachesTotalItems,
+    setCurrentPage: setDataBreachesCurrentPage,
+    setItemsPerPage: setDataBreachesItemsPerPage
+  } = usePagination({
+    data: dataBreaches,
+    itemsPerPage: 4
+  });
+
+  // Pagination pour le registre des traitements
+  const {
+    currentData: paginatedProcessingActivities,
+    currentPage: processingActivitiesCurrentPage,
+    totalPages: processingActivitiesTotalPages,
+    itemsPerPage: processingActivitiesItemsPerPage,
+    totalItems: processingActivitiesTotalItems,
+    setCurrentPage: setProcessingActivitiesCurrentPage,
+    setItemsPerPage: setProcessingActivitiesItemsPerPage
+  } = usePagination({
+    data: processingActivities,
+    itemsPerPage: 5
+  });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -228,7 +540,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {consents.map((consent) => (
+            {paginatedConsents.map((consent) => (
               <Card key={consent.id}>
                 <CardContent className="pt-4">
                   <div className="flex items-center justify-between">
@@ -267,6 +579,13 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
                 </CardContent>
               </Card>
             ))}
+            <Pagination
+              currentPage={consentsCurrentPage}
+              totalPages={consentsTotalPages}
+              onPageChange={setConsentsCurrentPage}
+              itemsPerPage={consentsItemsPerPage}
+              totalItems={consentsTotalItems}
+            />
           </div>
         </TabsContent>
 
@@ -291,7 +610,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {rightsRequests.map((request) => (
+            {paginatedRightsRequests.map((request) => (
               <Card key={request.id}>
                 <CardContent className="pt-4">
                   <div className="flex items-center justify-between">
@@ -329,6 +648,13 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
                 </CardContent>
               </Card>
             ))}
+            <Pagination
+              currentPage={rightsRequestsCurrentPage}
+              totalPages={rightsRequestsTotalPages}
+              onPageChange={setRightsRequestsCurrentPage}
+              itemsPerPage={rightsRequestsItemsPerPage}
+              totalItems={rightsRequestsTotalItems}
+            />
           </div>
         </TabsContent>
 
@@ -342,7 +668,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {dataBreaches.map((breach) => (
+            {paginatedDataBreaches.map((breach) => (
               <Card key={breach.id}>
                 <CardContent className="pt-4">
                   <div className="flex items-center justify-between">
@@ -387,6 +713,13 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
                 </CardContent>
               </Card>
             ))}
+            <Pagination
+              currentPage={dataBreachesCurrentPage}
+              totalPages={dataBreachesTotalPages}
+              onPageChange={setDataBreachesCurrentPage}
+              itemsPerPage={dataBreachesItemsPerPage}
+              totalItems={dataBreachesTotalItems}
+            />
           </div>
         </TabsContent>
 
@@ -400,7 +733,7 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {processingActivities.map((activity, index) => (
+            {paginatedProcessingActivities.map((activity, index) => (
               <Card key={index}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -436,6 +769,13 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
                 </CardContent>
               </Card>
             ))}
+            <Pagination
+              currentPage={processingActivitiesCurrentPage}
+              totalPages={processingActivitiesTotalPages}
+              onPageChange={setProcessingActivitiesCurrentPage}
+              itemsPerPage={processingActivitiesItemsPerPage}
+              totalItems={processingActivitiesTotalItems}
+            />
           </div>
         </TabsContent>
 
