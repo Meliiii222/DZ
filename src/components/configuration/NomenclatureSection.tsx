@@ -358,7 +358,15 @@ export function NomenclatureSection({ language = "fr" }: NomenclatureSectionProp
     { name: "Santé", code: "SAN", description: "Cartes et services de santé", count: 78, status: "Actif" },
     { name: "Éducation", code: "EDU", description: "Inscriptions et diplômes", count: 156, status: "Actif" },
     { name: "Transport", code: "TRA", description: "Permis et autorisations de transport", count: 234, status: "Actif" },
-    { name: "Fiscalité", code: "FIS", description: "Déclarations et paiements fiscaux", count: 345, status: "Actif" }
+    { name: "Fiscalité", code: "FIS", description: "Déclarations et paiements fiscaux", count: 345, status: "Actif" },
+    { name: "Logement", code: "LOG", description: "Demandes de logement social", count: 112, status: "Actif" },
+    { name: "Agriculture", code: "AGR", description: "Subventions et autorisations agricoles", count: 89, status: "Actif" },
+    { name: "Environnement", code: "ENV", description: "Autorisations environnementales", count: 67, status: "Actif" },
+    { name: "Culture", code: "CUL", description: "Subventions culturelles", count: 45, status: "Actif" },
+    { name: "Sports", code: "SPO", description: "Licences et autorisations sportives", count: 78, status: "Actif" },
+    { name: "Tourisme", code: "TOU", description: "Autorisations touristiques", count: 56, status: "Actif" },
+    { name: "Industrie", code: "IND", description: "Autorisations industrielles", count: 134, status: "Actif" },
+    { name: "Mines", code: "MIN", description: "Concessions minières", count: 23, status: "Actif" }
   ].filter(cat => 
     cat.name.toLowerCase().includes(proceduresFilter.toLowerCase()) ||
     cat.code.toLowerCase().includes(proceduresFilter.toLowerCase()) ||
@@ -373,12 +381,38 @@ export function NomenclatureSection({ language = "fr" }: NomenclatureSectionProp
     { name: "Droit du Travail", code: "TRA", description: "Relations de travail", count: 78, status: "Actif" },
     { name: "Droit Fiscal", code: "FIS", description: "Impôts et taxes", count: 156, status: "Actif" },
     { name: "Droit International", code: "INT", description: "Relations internationales", count: 34, status: "Actif" },
-    { name: "Droit de la Famille", code: "FAM", description: "Mariage, divorce, filiation", count: 98, status: "Actif" }
+    { name: "Droit de la Famille", code: "FAM", description: "Mariage, divorce, filiation", count: 98, status: "Actif" },
+    { name: "Droit Constitutionnel", code: "CON", description: "Organisation des pouvoirs", count: 23, status: "Actif" },
+    { name: "Droit Social", code: "SOC", description: "Sécurité sociale et protection", count: 67, status: "Actif" },
+    { name: "Droit Bancaire", code: "BAN", description: "Activités bancaires et financières", count: 45, status: "Actif" },
+    { name: "Droit de l'Environnement", code: "ENV", description: "Protection environnementale", count: 56, status: "Actif" },
+    { name: "Droit de la Propriété Intellectuelle", code: "PRO", description: "Brevets, marques, droits d'auteur", count: 34, status: "Actif" },
+    { name: "Droit Maritime", code: "MAR", description: "Navigation et commerce maritime", count: 12, status: "Actif" },
+    { name: "Droit Aérien", code: "AIR", description: "Transport aérien", count: 18, status: "Actif" },
+    { name: "Droit de la Consommation", code: "CONS", description: "Protection des consommateurs", count: 29, status: "Actif" },
+    { name: "Droit de la Santé", code: "SANT", description: "Santé publique et médical", count: 41, status: "Actif" },
+    { name: "Droit de l'Éducation", code: "EDUC", description: "Système éducatif", count: 38, status: "Actif" }
   ].filter(domain => 
     domain.name.toLowerCase().includes(domainsFilter.toLowerCase()) ||
     domain.code.toLowerCase().includes(domainsFilter.toLowerCase()) ||
     domain.description.toLowerCase().includes(domainsFilter.toLowerCase())
   );
+
+  // Pagination pour les catégories de procédures
+  const proceduresPerPage = 6;
+  const [currentProceduresPage, setCurrentProceduresPage] = useState(1);
+  const proceduresTotalPages = Math.ceil(procedureCategories.length / proceduresPerPage);
+  const startProceduresIndex = (currentProceduresPage - 1) * proceduresPerPage;
+  const endProceduresIndex = startProceduresIndex + proceduresPerPage;
+  const currentProcedures = procedureCategories.slice(startProceduresIndex, endProceduresIndex);
+
+  // Pagination pour les domaines juridiques
+  const domainsPerPage = 6;
+  const [currentDomainsPage, setCurrentDomainsPage] = useState(1);
+  const domainsTotalPages = Math.ceil(legalDomains.length / domainsPerPage);
+  const startDomainsIndex = (currentDomainsPage - 1) * domainsPerPage;
+  const endDomainsIndex = startDomainsIndex + domainsPerPage;
+  const currentDomains = legalDomains.slice(startDomainsIndex, endDomainsIndex);
 
   const PaginationControls = ({ currentPage, totalPages, onPageChange }: { currentPage: number, totalPages: number, onPageChange: (page: number) => void }) => (
     <div className="flex items-center justify-center gap-2 mt-4">
@@ -532,7 +566,7 @@ export function NomenclatureSection({ language = "fr" }: NomenclatureSectionProp
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {procedureCategories.map((category, index) => (
+            {currentProcedures.map((category, index) => (
               <Card key={index}>
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between">
@@ -558,6 +592,16 @@ export function NomenclatureSection({ language = "fr" }: NomenclatureSectionProp
               </Card>
             ))}
           </div>
+          
+          {/* Pagination pour les catégories de procédures */}
+          <Pagination
+            currentPage={currentProceduresPage}
+            totalPages={proceduresTotalPages}
+            totalItems={procedureCategories.length}
+            itemsPerPage={proceduresPerPage}
+            onPageChange={setCurrentProceduresPage}
+            onItemsPerPageChange={() => {}}
+          />
         </TabsContent>
 
         <TabsContent value="domains" className="space-y-4">
@@ -578,7 +622,7 @@ export function NomenclatureSection({ language = "fr" }: NomenclatureSectionProp
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {legalDomains.map((domain, index) => (
+            {currentDomains.map((domain, index) => (
               <Card key={index}>
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between">
@@ -604,6 +648,16 @@ export function NomenclatureSection({ language = "fr" }: NomenclatureSectionProp
               </Card>
             ))}
           </div>
+          
+          {/* Pagination pour les domaines juridiques */}
+          <Pagination
+            currentPage={currentDomainsPage}
+            totalPages={domainsTotalPages}
+            totalItems={legalDomains.length}
+            itemsPerPage={domainsPerPage}
+            onPageChange={setCurrentDomainsPage}
+            onItemsPerPageChange={() => {}}
+          />
         </TabsContent>
 
         <TabsContent value="organizations" className="space-y-4">
