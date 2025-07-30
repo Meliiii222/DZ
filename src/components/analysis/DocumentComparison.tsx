@@ -5,6 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Pagination } from '@/components/common/Pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { 
   useFunctionalModals, 
   DocumentViewModal, 
@@ -164,6 +166,96 @@ export function DocumentComparison() {
       pages: 387,
       language: 'Français',
       description: 'Réglementation du travail et de l\'emploi'
+    },
+    {
+      id: '7',
+      title: 'Procédure de permis de construire',
+      type: 'procedure',
+      category: 'Urbanisme',
+      author: 'Direction de l\'Urbanisme',
+      institution: 'Ministère de l\'Habitat',
+      date: '2024-01-12',
+      version: 'v1.7',
+      status: 'Actif',
+      size: '1.5 MB',
+      pages: 67,
+      language: 'Français',
+      description: 'Procédure complète pour l\'obtention d\'un permis de construire'
+    },
+    {
+      id: '8',
+      title: 'Code de commerce',
+      type: 'legal',
+      category: 'Code',
+      author: 'Ministère du Commerce',
+      institution: 'République Algérienne',
+      date: '2023-10-15',
+      version: 'v3.5',
+      status: 'En vigueur',
+      size: '2.7 MB',
+      pages: 423,
+      language: 'Français',
+      description: 'Réglementation commerciale et des échanges'
+    },
+    {
+      id: '9',
+      title: 'Procédure de carte d\'identité nationale',
+      type: 'procedure',
+      category: 'État Civil',
+      author: 'Direction Générale de la Sûreté Nationale',
+      institution: 'Ministère de l\'Intérieur',
+      date: '2024-01-03',
+      version: 'v2.0',
+      status: 'Actif',
+      size: '0.9 MB',
+      pages: 34,
+      language: 'Français',
+      description: 'Procédure pour l\'obtention de la carte d\'identité nationale'
+    },
+    {
+      id: '10',
+      title: 'Code pénal',
+      type: 'legal',
+      category: 'Code',
+      author: 'Ministère de la Justice',
+      institution: 'République Algérienne',
+      date: '2023-09-25',
+      version: 'v4.2',
+      status: 'En vigueur',
+      size: '3.3 MB',
+      pages: 512,
+      language: 'Français',
+      description: 'Réglementation pénale et des infractions'
+    },
+    {
+      id: '11',
+      title: 'Procédure de déclaration fiscale',
+      type: 'procedure',
+      category: 'Fiscalité',
+      author: 'Direction Générale des Impôts',
+      institution: 'Ministère des Finances',
+      date: '2024-01-07',
+      version: 'v1.8',
+      status: 'Actif',
+      size: '1.1 MB',
+      pages: 41,
+      language: 'Français',
+      description: 'Procédure de déclaration fiscale pour les entreprises'
+    },
+    {
+      id: '12',
+      title: 'Loi sur la protection des données',
+      type: 'legal',
+      category: 'Loi',
+      author: 'Ministère du Numérique',
+      institution: 'République Algérienne',
+      date: '2024-01-20',
+      version: 'v1.0',
+      status: 'En vigueur',
+      size: '1.6 MB',
+      pages: 89,
+      language: 'Français',
+      description: 'Protection des données personnelles et vie privée'
     }
   ];
 
@@ -175,6 +267,20 @@ export function DocumentComparison() {
     const matchesType = filterType === 'all' || doc.type === filterType;
     
     return matchesSearch && matchesType && !selectedDocuments.find(selected => selected.id === doc.id);
+  });
+
+  // Pagination pour les documents disponibles
+  const {
+    currentData: paginatedFilteredDocuments,
+    currentPage,
+    totalPages,
+    itemsPerPage,
+    totalItems,
+    setCurrentPage,
+    setItemsPerPage
+  } = usePagination({
+    data: filteredDocuments,
+    itemsPerPage: 6
   });
 
   const categories = [...new Set(availableDocuments.map(doc => doc.category))];
@@ -305,7 +411,7 @@ export function DocumentComparison() {
 
             {/* Liste des documents disponibles */}
             <div className="space-y-2 max-h-96 overflow-y-auto">
-              {filteredDocuments.map((document) => (
+              {paginatedFilteredDocuments.map((document) => (
                 <div key={document.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
@@ -329,6 +435,20 @@ export function DocumentComparison() {
                 </div>
               ))}
             </div>
+            
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-4">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                  itemsPerPage={itemsPerPage}
+                  totalItems={totalItems}
+                  onItemsPerPageChange={setItemsPerPage}
+                />
+              </div>
+            )}
           </CardContent>
         </Card>
 
