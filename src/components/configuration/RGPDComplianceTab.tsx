@@ -24,7 +24,9 @@ import {
   Search,
   Bell,
   Lock,
-  Database
+  Database,
+  Building,
+  FileText
 } from "lucide-react";
 
 interface RGPDComplianceTabProps {
@@ -473,6 +475,104 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
     itemsPerPage: 5
   });
 
+  // Données étendues pour les rapports
+  const reportsData = [
+    {
+      id: 1,
+      title: "Rapport Mensuel RGPD",
+      description: "Conformité générale - Janvier 2025",
+      score: 86,
+      color: "text-green-600",
+      icon: FileCheck,
+      lastGenerated: "22/01/2025",
+      type: "RGPD"
+    },
+    {
+      id: 2,
+      title: "Audit Loi 18-07",
+      description: "Conformité Algérienne - Q4 2024",
+      score: 91,
+      color: "text-blue-600",
+      icon: Lock,
+      lastGenerated: "15/01/2025",
+      type: "Loi Algérienne"
+    },
+    {
+      id: 3,
+      title: "Rapport Trimestriel Sécurité",
+      description: "Audit sécurité technique - Q4 2024",
+      score: 78,
+      color: "text-orange-600",
+      icon: Shield,
+      lastGenerated: "10/01/2025",
+      type: "Sécurité"
+    },
+    {
+      id: 4,
+      title: "Audit Formation Personnel",
+      description: "Évaluation formation RGPD - Décembre 2024",
+      score: 65,
+      color: "text-red-600",
+      icon: Users,
+      lastGenerated: "05/01/2025",
+      type: "Formation"
+    },
+    {
+      id: 5,
+      title: "Rapport Incidents Données",
+      description: "Gestion incidents Q4 2024",
+      score: 95,
+      color: "text-green-600",
+      icon: AlertTriangle,
+      lastGenerated: "01/01/2025",
+      type: "Incidents"
+    },
+    {
+      id: 6,
+      title: "Audit Fournisseurs",
+      description: "Conformité sous-traitants - Q4 2024",
+      score: 88,
+      color: "text-blue-600",
+      icon: Building,
+      lastGenerated: "28/12/2024",
+      type: "Fournisseurs"
+    },
+    {
+      id: 7,
+      title: "Rapport DPIAs",
+      description: "Évaluations d'impact - 2024",
+      score: 92,
+      color: "text-green-600",
+      icon: FileText,
+      lastGenerated: "25/12/2024",
+      type: "DPIA"
+    },
+    {
+      id: 8,
+      title: "Audit Consentements",
+      description: "Gestion consentements utilisateurs",
+      score: 84,
+      color: "text-blue-600",
+      icon: CheckCircle,
+      lastGenerated: "20/12/2024",
+      type: "Consentements"
+    }
+  ];
+
+  // Pagination pour les rapports
+  const {
+    currentData: paginatedReports,
+    currentPage: reportsCurrentPage,
+    totalPages: reportsTotalPages,
+    itemsPerPage: reportsItemsPerPage,
+    totalItems: reportsTotalItems,
+    setCurrentPage: setReportsCurrentPage,
+    setItemsPerPage: setReportsItemsPerPage
+  } = usePagination({
+    data: reportsData,
+    itemsPerPage: 4
+  });
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Accordé': case 'Terminé': case 'Excellent': return 'bg-green-100 text-green-800';
@@ -787,55 +887,40 @@ export function RGPDComplianceTab({ language = "fr" }: RGPDComplianceTabProps) {
           <h3 className="text-lg font-semibold">Rapports de Conformité</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileCheck className="w-5 h-5 text-green-600" />
-                  Rapport Mensuel RGPD
-                </CardTitle>
-                <CardDescription>Conformité générale - Janvier 2025</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span>Score global</span>
-                    <span className="font-bold text-green-600">86%</span>
+            {paginatedReports.map((report) => (
+              <Card key={report.id}>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <report.icon className={`w-5 h-5 ${report.color}`} />
+                    {report.title}
+                  </CardTitle>
+                  <CardDescription>{report.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span>Score global</span>
+                      <span className={`font-bold ${report.color}`}>{report.score}%</span>
+                    </div>
+                    <Progress value={report.score} className="h-2" />
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <span>Dernière génération: {report.lastGenerated}</span>
+                      <Button variant="outline" size="sm">
+                        <Download className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                  <Progress value={86} className="h-2" />
-                  <div className="flex justify-between text-sm text-gray-600">
-                    <span>Dernière génération: 22/01/2025</span>
-                    <Button variant="outline" size="sm">
-                      <Download className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lock className="w-5 h-5 text-blue-600" />
-                  Audit Loi 18-07
-                </CardTitle>
-                <CardDescription>Conformité Algérienne - Q4 2024</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span>Score de conformité</span>
-                    <span className="font-bold text-blue-600">91%</span>
-                  </div>
-                  <Progress value={91} className="h-2" />
-                  <div className="flex justify-between text-sm text-gray-600">
-                    <span>Dernière génération: 15/01/2025</span>
-                    <Button variant="outline" size="sm">
-                      <Download className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
+            <Pagination
+              currentPage={reportsCurrentPage}
+              totalPages={reportsTotalPages}
+              onPageChange={setReportsCurrentPage}
+              itemsPerPage={reportsItemsPerPage}
+              totalItems={reportsTotalItems}
+              onItemsPerPageChange={() => {}}
+            />
           </div>
 
           <Card>
