@@ -235,133 +235,316 @@ export function ProcedureCatalogTab({ onAddProcedure, onOpenApprovalQueue }: Pro
   const institutions = [
     {
       id: 1,
-      name: "Ministère de l'Intérieur",
-      type: "Ministériel",
-      proceduresCount: 156,
-      description: "Responsable des procédures d'état civil et de sécurité",
+      name: "Centre National du Registre de Commerce (CNRC)",
+      type: "Organisme public",
+      description: "Gestion du registre de commerce et des procédures d'immatriculation des entreprises",
+      proceduresCount: 47,
       icon: Building
     },
     {
       id: 2,
-      name: "Ministère du Commerce",
-      type: "Ministériel",
+      name: "Direction Générale des Impôts (DGI)",
+      type: "Administration fiscale",
+      description: "Gestion des procédures fiscales et déclarations d'impôts",
       proceduresCount: 89,
-      description: "Gestion des procédures commerciales et d'investissement",
-      icon: Scale
+      icon: FileText
     },
     {
       id: 3,
-      name: "Wilayas",
-      type: "Territorial",
-      proceduresCount: 234,
-      description: "Administration territoriale des procédures locales",
+      name: "Ministère de l'Intérieur",
+      type: "Ministère",
+      description: "Procédures administratives civiles et d'état civil",
+      proceduresCount: 156,
       icon: Users
     },
     {
       id: 4,
-      name: "Communes",
-      type: "Local",
-      proceduresCount: 187,
-      description: "Services de proximité et procédures municipales",
+      name: "Ministère du Travail",
+      type: "Ministère",
+      description: "Procédures liées à l'emploi et à la protection sociale",
+      proceduresCount: 78,
+      icon: Users
+    },
+    {
+      id: 5,
+      name: "Ministère de l'Environnement",
+      type: "Ministère",
+      description: "Autorisations environnementales et études d'impact",
+      proceduresCount: 34,
       icon: Building
+    },
+    {
+      id: 6,
+      name: "Assemblée Populaire de Wilaya (APW)",
+      type: "Collectivité locale",
+      description: "Procédures de délibération et d'autorisation locale",
+      proceduresCount: 92,
+      icon: Building
+    },
+    {
+      id: 7,
+      name: "Assemblée Populaire Communale (APC)",
+      type: "Collectivité locale",
+      description: "Procédures communales et autorisations locales",
+      proceduresCount: 127,
+      icon: Building
+    },
+    {
+      id: 8,
+      name: "Ministère de la Justice",
+      type: "Ministère",
+      description: "Procédures judiciaires et légalisation",
+      proceduresCount: 203,
+      icon: Scale
+    },
+    {
+      id: 9,
+      name: "Ministère des Finances",
+      type: "Ministère",
+      description: "Procédures budgétaires et marchés publics",
+      proceduresCount: 145,
+      icon: FileText
+    },
+    {
+      id: 10,
+      name: "Ministère de l'Habitat",
+      type: "Ministère",
+      description: "Permis de construire et autorisations d'urbanisme",
+      proceduresCount: 67,
+      icon: Building
+    },
+    {
+      id: 11,
+      name: "Ministère de la Santé",
+      type: "Ministère", 
+      description: "Autorisations sanitaires et procédures médicales",
+      proceduresCount: 89,
+      icon: Heart
+    },
+    {
+      id: 12,
+      name: "Ministère de l'Éducation",
+      type: "Ministère",
+      description: "Procédures éducatives et diplômes",
+      proceduresCount: 112,
+      icon: BookOpen
     }
   ];
 
   const procedureTypes = [
     {
       id: 1,
-      name: "État Civil",
-      count: 45,
-      description: "Documents d'identité et d'état civil",
-      icon: FileText,
-      color: "emerald"
-    },
-    {
-      id: 2,
-      name: "Entreprises",
-      count: 67,
-      description: "Création et gestion d'entreprises",
+      name: "Création d'entreprise",
+      count: 47,
+      description: "Procédures d'immatriculation et de création d'activités commerciales",
       icon: Building,
       color: "blue"
     },
     {
+      id: 2,
+      name: "Fiscalité",
+      count: 89,
+      description: "Déclarations fiscales, TVA et procédures douanières",
+      icon: FileText,
+      color: "green"
+    },
+    {
       id: 3,
-      name: "Urbanisme",
-      count: 34,
-      description: "Permis de construire et urbanisme",
-      icon: BookOpen,
+      name: "État civil",
+      count: 156,
+      description: "Actes d'état civil, cartes d'identité et passeports",
+      icon: Users,
       color: "purple"
     },
     {
       id: 4,
-      name: "Commerce",
-      count: 28,
-      description: "Licences et autorisations commerciales",
-      icon: Scale,
+      name: "Emploi",
+      count: 78,
+      description: "Contrats de travail, CNAS et procédures d'emploi",
+      icon: Users,
       color: "orange"
+    },
+    {
+      id: 5,
+      name: "Environnement",
+      count: 34,
+      description: "Études d'impact et autorisations environnementales",
+      icon: Building,
+      color: "teal"
+    },
+    {
+      id: 6,
+      name: "Marchés publics",
+      count: 92,
+      description: "Appels d'offres et procédures de passation de marchés",
+      icon: FileText,
+      color: "indigo"
+    },
+    {
+      id: 7,
+      name: "Urbanisme",
+      count: 127,
+      description: "Permis de construire et autorisations d'urbanisme",
+      icon: Building,
+      color: "red"
+    },
+    {
+      id: 8,
+      name: "Justice",
+      count: 203,
+      description: "Procédures judiciaires et légalisation de documents",
+      icon: Scale,
+      color: "gray"
     }
   ];
 
   const featuredProcedures = [
     {
       id: 1,
-      title: "Création d'entreprise en ligne",
-      type: "Procédure",
-      category: "Entreprise",
-      publishDate: "10 janvier 2024",
-      views: "3,247",
-      downloads: "1,892",
-      featured: true
+      title: "Création d'une SARL",
+      description: "Procédure complète de création d'une société à responsabilité limitée",
+      institution: "CNRC",
+      duration: "15 jours",
+      difficulty: "Moyenne",
+      views: 15234,
+      rating: 4.8,
+      lastUpdated: "2025-01-10",
+      tags: ["Entreprise", "SARL", "Commerce"]
     },
     {
       id: 2,
-      title: "Renouvellement passeport express",
-      type: "Procédure",
-      category: "État Civil",
-      publishDate: "2024-01-15",
-      views: "2,156",
-      downloads: "1,234",
-      featured: true
+      title: "Déclaration TVA mensuelle",
+      description: "Guide pour déclarer la TVA mensuelle auprès de la DGI",
+      institution: "DGI",
+      duration: "2 heures",
+      difficulty: "Facile",
+      views: 23456,
+      rating: 4.9,
+      lastUpdated: "2025-01-08",
+      tags: ["Fiscalité", "TVA", "Déclaration"]
     },
     {
       id: 3,
-      title: "Licence d'exportation simplifiée",
-      type: "Procédure",
-      category: "Commerce",
-      publishDate: "20 janvier 2024",
-      views: "1,789",
-      downloads: "856",
-      featured: true
+      title: "Demande de passeport biométrique",
+      description: "Procédure de demande et renouvellement de passeport",
+      institution: "Ministère de l'Intérieur",
+      duration: "10 jours",
+      difficulty: "Facile",
+      views: 34567,
+      rating: 4.7,
+      lastUpdated: "2025-01-12",
+      tags: ["État civil", "Passeport", "Identité"]
+    },
+    {
+      id: 4,
+      title: "Permis de construire",
+      description: "Obtention d'un permis de construire pour logement individuel",
+      institution: "APC",
+      duration: "45 jours",
+      difficulty: "Difficile",
+      views: 12345,
+      rating: 4.5,
+      lastUpdated: "2025-01-05",
+      tags: ["Urbanisme", "Construction", "Permis"]
+    },
+    {
+      id: 5,
+      title: "Inscription CNAS",
+      description: "Inscription d'un employé à la sécurité sociale",
+      institution: "CNAS",
+      duration: "5 jours",
+      difficulty: "Facile",
+      views: 18765,
+      rating: 4.6,
+      lastUpdated: "2025-01-11",
+      tags: ["Emploi", "Sécurité sociale", "CNAS"]
+    },
+    {
+      id: 6,
+      title: "Autorisation d'exploitation commerciale",
+      description: "Demande d'autorisation pour activité commerciale",
+      institution: "Wilaya",
+      duration: "20 jours",
+      difficulty: "Moyenne",
+      views: 9876,
+      rating: 4.4,
+      lastUpdated: "2025-01-09",
+      tags: ["Commerce", "Autorisation", "Exploitation"]
     }
   ];
 
   const testimonials = [
     {
       id: 1,
-      name: "M. Ahmed Benali",
+      author: "Ahmed Benali",
       role: "Entrepreneur",
-      speciality: "Commerce",
+      company: "StartUp Tech DZ",
+      content: "Grâce à cette plateforme, j'ai pu créer ma SARL en suivant exactement les étapes. Très clair et bien expliqué.",
       rating: 5,
-      comment: "La procédure de création d'entreprise en ligne m'a fait gagner énormément de temps. Interface très claire.",
-      date: "2024-01-15"
+      procedure: "Création d'une SARL",
+      date: "2025-01-10",
+      helpful: 45,
+      avatar: "/avatars/ahmed.jpg"
     },
     {
       id: 2,
-      name: "Mme. Fatima Khelil",
-      role: "Citoyenne",
-      speciality: "État Civil",
+      author: "Fatima Zohra",
+      role: "Comptable",
+      company: "Cabinet Expert",
+      content: "Les procédures fiscales sont enfin accessibles ! Mes clients apprécient la clarté des explications.",
       rating: 5,
-      comment: "Renouvellement de passeport très rapide grâce aux nouvelles procédures dématérialisées.",
-      date: "12 janvier 2024"
+      procedure: "Déclaration TVA",
+      date: "2025-01-08",
+      helpful: 38,
+      avatar: "/avatars/fatima.jpg"
     },
     {
       id: 3,
-      name: "Dr. Karim Meziani",
-      role: "Médecin",
-      speciality: "Santé",
+      author: "Mohamed Tahar",
+      role: "Architecte",
+      company: "Atelier Design",
+      content: "Le guide pour les permis de construire m'a fait gagner énormément de temps. Merci !",
       rating: 4,
-      comment: "Les procédures d'agrément sanitaire sont maintenant plus transparentes et accessibles.",
-      date: "08 janvier 2024"
+      procedure: "Permis de construire",
+      date: "2025-01-07",
+      helpful: 29,
+      avatar: "/avatars/mohamed.jpg"
+    },
+    {
+      id: 4,
+      author: "Aicha Mansouri",
+      role: "RH Manager",
+      company: "Entreprise Moderne",
+      content: "Parfait pour gérer les inscriptions CNAS de nos employés. Interface intuitive.",
+      rating: 5,
+      procedure: "Inscription CNAS",
+      date: "2025-01-06",
+      helpful: 52,
+      avatar: "/avatars/aicha.jpg"
+    },
+    {
+      id: 5,
+      author: "Karim Boucherit",
+      role: "Commerçant",
+      company: "Import Export KB",
+      content: "Les procédures douanières enfin expliquées simplement. Très utile pour mon activité.",
+      rating: 4,
+      procedure: "Procédures douanières",
+      date: "2025-01-05",
+      helpful: 33,
+      avatar: "/avatars/karim.jpg"
+    },
+    {
+      id: 6,
+      author: "Samira Hadj",
+      role: "Juriste",
+      company: "Cabinet Juridique",
+      content: "Excellent outil de référence pour conseiller mes clients sur les démarches administratives.",
+      rating: 5,
+      procedure: "Légalisation documents",
+      date: "2025-01-04",
+      helpful: 41,
+      avatar: "/avatars/samira.jpg"
     }
   ];
 
@@ -429,6 +612,62 @@ export function ProcedureCatalogTab({ onAddProcedure, onOpenApprovalQueue }: Pro
   } = usePagination({
     data: filteredProcedures,
     itemsPerPage: 10
+  });
+
+  // Pagination pour les institutions
+  const {
+    currentData: paginatedInstitutions,
+    currentPage: institutionsCurrentPage,
+    totalPages: institutionsTotalPages,
+    itemsPerPage: institutionsItemsPerPage,
+    totalItems: institutionsTotalItems,
+    setCurrentPage: setInstitutionsCurrentPage,
+    setItemsPerPage: setInstitutionsItemsPerPage
+  } = usePagination({
+    data: institutions,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les types de procédures
+  const {
+    currentData: paginatedProcedureTypes,
+    currentPage: typesCurrentPage,
+    totalPages: typesTotalPages,
+    itemsPerPage: typesItemsPerPage,
+    totalItems: typesTotalItems,
+    setCurrentPage: setTypesCurrentPage,
+    setItemsPerPage: setTypesItemsPerPage
+  } = usePagination({
+    data: procedureTypes,
+    itemsPerPage: 8
+  });
+
+  // Pagination pour les procédures en vedette
+  const {
+    currentData: paginatedFeaturedProcedures,
+    currentPage: featuredCurrentPage,
+    totalPages: featuredTotalPages,
+    itemsPerPage: featuredItemsPerPage,
+    totalItems: featuredTotalItems,
+    setCurrentPage: setFeaturedCurrentPage,
+    setItemsPerPage: setFeaturedItemsPerPage
+  } = usePagination({
+    data: featuredProcedures,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les témoignages
+  const {
+    currentData: paginatedTestimonials,
+    currentPage: testimonialsCurrentPage,
+    totalPages: testimonialsTotalPages,
+    itemsPerPage: testimonialsItemsPerPage,
+    totalItems: testimonialsTotalItems,
+    setCurrentPage: setTestimonialsCurrentPage,
+    setItemsPerPage: setTestimonialsItemsPerPage
+  } = usePagination({
+    data: testimonials,
+    itemsPerPage: 6
   });
 
   const getColorClasses = (color: string) => {
@@ -734,7 +973,7 @@ export function ProcedureCatalogTab({ onAddProcedure, onOpenApprovalQueue }: Pro
         
         <TabsContent value="institutions" className="mt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {institutions.map((institution) => {
+            {paginatedInstitutions.map((institution) => {
               const IconComponent = institution.icon;
               return (
                 <Card key={institution.id} className="hover:shadow-md transition-shadow">
@@ -764,11 +1003,23 @@ export function ProcedureCatalogTab({ onAddProcedure, onOpenApprovalQueue }: Pro
               );
             })}
           </div>
+          
+          {/* Pagination pour les institutions */}
+          <div className="mt-6">
+            <Pagination
+              currentPage={institutionsCurrentPage}
+              totalPages={institutionsTotalPages}
+              totalItems={institutionsTotalItems}
+              itemsPerPage={institutionsItemsPerPage}
+              onPageChange={setInstitutionsCurrentPage}
+              onItemsPerPageChange={setInstitutionsItemsPerPage}
+            />
+          </div>
         </TabsContent>
 
         <TabsContent value="types" className="mt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {procedureTypes.map((type) => {
+            {paginatedProcedureTypes.map((type) => {
               const IconComponent = type.icon;
               const colorClasses = getColorClasses(type.color);
               return (
@@ -794,90 +1045,142 @@ export function ProcedureCatalogTab({ onAddProcedure, onOpenApprovalQueue }: Pro
               );
             })}
           </div>
+          
+          {/* Pagination pour les types de procédures */}
+          <div className="mt-6">
+            <Pagination
+              currentPage={typesCurrentPage}
+              totalPages={typesTotalPages}
+              totalItems={typesTotalItems}
+              itemsPerPage={typesItemsPerPage}
+              onPageChange={setTypesCurrentPage}
+              onItemsPerPageChange={setTypesItemsPerPage}
+            />
+          </div>
         </TabsContent>
 
         <TabsContent value="featured" className="mt-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {featuredProcedures.map((procedure) => (
+            {paginatedFeaturedProcedures.map((procedure) => (
               <Card key={procedure.id} className="hover:shadow-md transition-shadow">
                 <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="outline">{procedure.type}</Badge>
-                        <Badge className="bg-emerald-100 text-emerald-800">{procedure.category}</Badge>
-                      </div>
-                      <CardTitle className="text-lg line-clamp-2">{procedure.title}</CardTitle>
+                  <div className="flex items-center justify-between">
+                    <Badge variant="secondary">{procedure.institution}</Badge>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                      <span className="text-sm font-medium">{procedure.rating}</span>
                     </div>
-                    <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                  </div>
+                  <CardTitle className="text-lg">{procedure.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-3">{procedure.description}</p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Durée :</span>
+                      <span className="font-medium">{procedure.duration}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Difficulté :</span>
+                      <Badge variant={procedure.difficulty === 'Facile' ? 'default' : procedure.difficulty === 'Moyenne' ? 'secondary' : 'destructive'}>
+                        {procedure.difficulty}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">Vues :</span>
+                      <span className="font-medium">{procedure.views.toLocaleString()}</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {procedure.tags.map((tag, index) => (
+                      <Badge key={index} variant="outline" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full"
+                    onClick={() => {
+                      setSelectedProcedure(procedure);
+                      setIsConsultationModalOpen(true);
+                    }}
+                  >
+                    <Eye className="w-4 h-4 mr-1" />
+                    Consulter
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          {/* Pagination pour les procédures en vedette */}
+          <div className="mt-6">
+            <Pagination
+              currentPage={featuredCurrentPage}
+              totalPages={featuredTotalPages}
+              totalItems={featuredTotalItems}
+              itemsPerPage={featuredItemsPerPage}
+              onPageChange={setFeaturedCurrentPage}
+              onItemsPerPageChange={setFeaturedItemsPerPage}
+            />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="testimonials" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {paginatedTestimonials.map((testimonial) => (
+              <Card key={testimonial.id} className="hover:shadow-md transition-shadow">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 font-semibold text-sm">
+                        {testimonial.author.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{testimonial.author}</CardTitle>
+                      <p className="text-sm text-gray-600">{testimonial.role} - {testimonial.company}</p>
+                    </div>
+                    <div className="ml-auto flex items-center gap-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
+                      ))}
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <p className="text-sm text-gray-600">Publié le {procedure.publishDate}</p>
-                    <div className="flex items-center gap-4 text-sm text-gray-600">
-                      <div className="flex items-center gap-1">
-                        <Eye className="w-4 h-4" />
-                        {procedure.views}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <FileText className="w-4 h-4" />
-                        {procedure.downloads}
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1"
-                        onClick={() => handleViewProcedure(procedure)}
-                      >
-                        <Eye className="w-4 h-4 mr-1" />
-                        Consulter
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <Download className="w-4 h-4 mr-1" />
-                        Télécharger
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <Share2 className="w-4 h-4 mr-1" />
-                        Partager
-                      </Button>
-                    </div>
+                  <blockquote className="text-sm text-gray-700 mb-3 italic">
+                    "{testimonial.content}"
+                  </blockquote>
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <span>Procédure : {testimonial.procedure}</span>
+                    <span>{testimonial.date}</span>
+                  </div>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-xs text-gray-500">
+                      {testimonial.helpful} personnes ont trouvé cela utile
+                    </span>
+                    <Button variant="ghost" size="sm" className="text-xs">
+                      Utile
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </TabsContent>
-
-        <TabsContent value="testimonials" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {testimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="hover:shadow-md transition-shadow">
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                      <p className="text-sm text-gray-600">{testimonial.role}</p>
-                      <Badge variant="outline" className="mt-1">
-                        {testimonial.speciality}
-                      </Badge>
-                    </div>
-                    <Quote className="w-6 h-6 text-emerald-600" />
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-1">
-                      {renderStars(testimonial.rating)}
-                    </div>
-                    <p className="text-sm text-gray-700 italic">"{testimonial.comment}"</p>
-                    <p className="text-xs text-gray-500">{testimonial.date}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          
+          {/* Pagination pour les témoignages */}
+          <div className="mt-6">
+            <Pagination
+              currentPage={testimonialsCurrentPage}
+              totalPages={testimonialsTotalPages}
+              totalItems={testimonialsTotalItems}
+              itemsPerPage={testimonialsItemsPerPage}
+              onPageChange={setTestimonialsCurrentPage}
+              onItemsPerPageChange={setTestimonialsItemsPerPage}
+            />
           </div>
         </TabsContent>
       </Tabs>

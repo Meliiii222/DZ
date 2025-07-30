@@ -6,6 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PersonalDashboard } from "./dashboard/PersonalDashboard";
 import { AIIcon } from "@/components/common/AIIcon";
+import { Pagination } from '@/components/common/Pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { 
   FileText, 
   Scale, 
@@ -48,21 +50,9 @@ export function Dashboard({ language = "fr" }: DashboardProps) {
         quickAccess: "Accès rapide",
         stats: "Statistiques",
         recentTexts: "Textes récents",
-        recentProcedures: "Procédures récentes",
-        news: "Actualités",
-        totalTexts: "Textes juridiques",
-        totalProcedures: "Procédures",
-        consultations: "Consultations",
-        users: "Utilisateurs",
-        pendingReviews: "Nombre des wilayas",
-        consultationsEvolution: "Évolution des consultations",
-        contentDistribution: "Répartition par type de contenu",
-        topSearches: "Top des recherches",
-        monthlyTrends: "Tendances mensuelles",
-        recentActivity: "Activité récente",
-        notifications: "Notifications",
-        myTasks: "Mes tâches",
-        recentDocuments: "Documents récents"
+        recentAlerts: "Alertes récentes",
+        topSearches: "Recherches populaires",
+        monthlyTrends: "Tendances mensuelles"
       },
       ar: {
         welcome: "مرحباً بكم في dalil.dz",
@@ -212,6 +202,96 @@ export function Dashboard({ language = "fr" }: DashboardProps) {
     { type: "Jurisprudence", count: 432, percentage: 13, color: "bg-purple-500" },
     { type: "Formulaires", count: 201, percentage: 6, color: "bg-orange-500" }
   ];
+
+  // Données simulées pour les alertes récentes
+  const recentAlerts = [
+    {
+      id: 1,
+      title: "Nouvelle loi sur l'investissement",
+      description: "Publication de la loi n° 25-01 relative aux investissements",
+      type: "urgent",
+      date: "2025-01-15",
+      category: "Législation",
+      read: false
+    },
+    {
+      id: 2,
+      title: "Modification du Code du travail",
+      description: "Amendements concernant les congés payés",
+      type: "important",
+      date: "2025-01-14",
+      category: "Droit social",
+      read: true
+    },
+    {
+      id: 3,
+      title: "Nouvelle procédure fiscale",
+      description: "Simplification des déclarations TVA",
+      type: "info",
+      date: "2025-01-13",
+      category: "Fiscal",
+      read: false
+    },
+    {
+      id: 4,
+      title: "Réforme judiciaire",
+      description: "Digitalisation des procédures judiciaires",
+      type: "important",
+      date: "2025-01-12",
+      category: "Justice",
+      read: true
+    },
+    {
+      id: 5,
+      title: "Code de l'environnement",
+      description: "Nouvelles normes environnementales",
+      type: "info",
+      date: "2025-01-11",
+      category: "Environnement",
+      read: false
+    },
+    {
+      id: 6,
+      title: "Loi sur les marchés publics",
+      description: "Mise à jour des seuils de passation",
+      type: "urgent",
+      date: "2025-01-10",
+      category: "Administratif",
+      read: true
+    },
+    {
+      id: 7,
+      title: "Code de commerce",
+      description: "Nouvelles dispositions pour les SARL",
+      type: "important",
+      date: "2025-01-09",
+      category: "Commercial",
+      read: false
+    },
+    {
+      id: 8,
+      title: "Réglementation bancaire",
+      description: "Nouvelles règles de crédit",
+      type: "info",
+      date: "2025-01-08",
+      category: "Bancaire",
+      read: true
+    }
+  ];
+
+  // Pagination pour les alertes récentes
+  const {
+    currentData: paginatedAlerts,
+    currentPage: alertsCurrentPage,
+    totalPages: alertsTotalPages,
+    itemsPerPage: alertsItemsPerPage,
+    totalItems: alertsTotalItems,
+    setCurrentPage: setAlertsCurrentPage,
+    setItemsPerPage: setAlertsItemsPerPage
+  } = usePagination({
+    data: recentAlerts,
+    itemsPerPage: 5
+  });
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -476,6 +556,61 @@ export function Dashboard({ language = "fr" }: DashboardProps) {
                   </div>
                 </div>
               ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Bell className="w-5 h-5 text-red-600" />
+              {getText("recentAlerts")}
+            </CardTitle>
+            <CardDescription>Dernières notifications importantes</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {paginatedAlerts.map((alert) => (
+                <div key={alert.id} className={`p-3 rounded-lg border ${
+                  alert.read ? 'bg-gray-50 border-gray-200' : 'bg-blue-50 border-blue-200'
+                }`}>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Badge variant={
+                          alert.type === 'urgent' ? 'destructive' :
+                          alert.type === 'important' ? 'default' : 'secondary'
+                        }>
+                          {alert.type === 'urgent' ? 'Urgent' :
+                           alert.type === 'important' ? 'Important' : 'Info'}
+                        </Badge>
+                        <Badge variant="outline">{alert.category}</Badge>
+                      </div>
+                      <h4 className="font-medium text-sm">{alert.title}</h4>
+                      <p className="text-xs text-gray-600 mt-1">{alert.description}</p>
+                      <p className="text-xs text-gray-500 mt-1">{alert.date}</p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {!alert.read && <div className="w-2 h-2 bg-blue-600 rounded-full"></div>}
+                      <Button variant="ghost" size="sm">
+                        <Eye className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Pagination pour les alertes */}
+            <div className="mt-4">
+              <Pagination
+                currentPage={alertsCurrentPage}
+                totalPages={alertsTotalPages}
+                totalItems={alertsTotalItems}
+                itemsPerPage={alertsItemsPerPage}
+                onPageChange={setAlertsCurrentPage}
+                onItemsPerPageChange={setAlertsItemsPerPage}
+              />
             </div>
           </CardContent>
         </Card>

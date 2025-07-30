@@ -233,6 +233,18 @@ export function StructuredDebatesTab() {
         ))}
       </div>
 
+      {/* Pagination pour les débats structurés */}
+      <div className="mt-6">
+        <Pagination
+          currentPage={debatesCurrentPage}
+          totalPages={debatesTotalPages}
+          totalItems={debatesTotalItems}
+          itemsPerPage={debatesItemsPerPage}
+          onPageChange={setDebatesCurrentPage}
+          onItemsPerPageChange={setDebatesItemsPerPage}
+        />
+      </div>
+
       {createDebateOpen && (
         <Card>
           <CardHeader>
