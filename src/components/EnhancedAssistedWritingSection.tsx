@@ -114,14 +114,17 @@ export function EnhancedAssistedWritingSection() {
 
   // Pagination pour l'activité récente
   const {
-    data: paginatedActivities,
+    currentData: paginatedActivities,
     currentPage: activitiesPage,
     totalPages: activitiesTotalPages,
     goToPage: goToActivitiesPage,
-    goToNextPage: goToNextActivitiesPage,
-    goToPreviousPage: goToPreviousActivitiesPage,
+    nextPage: goToNextActivitiesPage,
+    prevPage: goToPreviousActivitiesPage,
     totalItems: activitiesTotalItems
-  } = usePagination(recentActivities, 4);
+  } = usePagination({
+    data: recentActivities,
+    itemsPerPage: 4
+  });
 
   const renderOverview = () => (
     <div className="space-y-6">
