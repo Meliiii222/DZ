@@ -60,6 +60,116 @@ export function NewsSection() {
       category: "Justice",
       source: "Ministère de la Justice",
       readTime: "4 min"
+    },
+    {
+      id: 4,
+      title: "Nouvelle réglementation fiscale pour les entreprises",
+      summary: "Mise en place de nouvelles règles fiscales pour stimuler l'investissement et la croissance économique.",
+      date: "2024-01-08",
+      category: "Fiscal",
+      source: "Ministère des Finances",
+      readTime: "6 min"
+    },
+    {
+      id: 5,
+      title: "Réforme du droit des contrats commerciaux",
+      summary: "Modernisation du cadre juridique des contrats commerciaux pour faciliter les échanges internationaux.",
+      date: "2024-01-05",
+      category: "Législation",
+      source: "Assemblée Populaire Nationale",
+      readTime: "8 min"
+    },
+    {
+      id: 6,
+      title: "Protection renforcée des consommateurs",
+      summary: "Nouvelles dispositions pour renforcer les droits des consommateurs et améliorer la transparence.",
+      date: "2024-01-03",
+      category: "Droit social",
+      source: "Ministère du Commerce",
+      readTime: "5 min"
+    },
+    {
+      id: 7,
+      title: "Lutte contre la corruption : nouvelles mesures",
+      summary: "Renforcement du dispositif de lutte contre la corruption avec de nouvelles procédures de contrôle.",
+      date: "2024-01-01",
+      category: "Justice",
+      source: "Cour Suprême",
+      readTime: "7 min",
+      isUrgent: true
+    },
+    {
+      id: 8,
+      title: "Réforme du système bancaire",
+      summary: "Modernisation du cadre réglementaire du secteur bancaire pour améliorer l'accès au crédit.",
+      date: "2023-12-28",
+      category: "Économie",
+      source: "Banque d'Algérie",
+      readTime: "6 min"
+    },
+    {
+      id: 9,
+      title: "Nouvelle loi sur l'environnement",
+      summary: "Adoption d'une législation environnementale plus stricte pour protéger les ressources naturelles.",
+      date: "2023-12-25",
+      category: "Législation",
+      source: "Ministère de l'Environnement",
+      readTime: "5 min"
+    },
+    {
+      id: 10,
+      title: "Réforme de la sécurité sociale",
+      summary: "Modernisation du système de sécurité sociale pour améliorer la couverture des citoyens.",
+      date: "2023-12-22",
+      category: "Droit social",
+      source: "Caisse Nationale de Sécurité Sociale",
+      readTime: "8 min"
+    },
+    {
+      id: 11,
+      title: "Digitalisation des services publics",
+      summary: "Lancement de nouveaux services numériques pour simplifier les démarches administratives.",
+      date: "2023-12-20",
+      category: "Justice",
+      source: "Ministère de la Numérisation",
+      readTime: "4 min"
+    },
+    {
+      id: 12,
+      title: "Nouvelle réglementation des marchés publics",
+      summary: "Simplification et modernisation des procédures de passation des marchés publics.",
+      date: "2023-12-18",
+      category: "Économie",
+      source: "Ministère des Finances",
+      readTime: "6 min"
+    },
+    {
+      id: 13,
+      title: "Protection des données personnelles renforcée",
+      summary: "Nouvelles mesures pour renforcer la protection des données personnelles dans le secteur privé.",
+      date: "2023-12-15",
+      category: "Législation",
+      source: "Autorité de Protection des Données",
+      readTime: "5 min"
+    },
+    {
+      id: 14,
+      title: "Réforme du droit de la famille",
+      summary: "Modernisation du droit de la famille pour l'adapter aux évolutions de la société.",
+      date: "2023-12-12",
+      category: "Droit social",
+      source: "Ministère de la Justice",
+      readTime: "7 min"
+    },
+    {
+      id: 15,
+      title: "Nouvelle politique de lutte contre le terrorisme",
+      summary: "Renforcement du cadre juridique pour la lutte contre le terrorisme et l'extrémisme.",
+      date: "2023-12-10",
+      category: "Justice",
+      source: "Ministère de l'Intérieur",
+      readTime: "6 min",
+      isUrgent: true
     }
   ];
 
