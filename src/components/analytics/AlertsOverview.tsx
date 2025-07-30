@@ -43,6 +43,78 @@ export function AlertsOverview() {
       date: '2024-01-10',
       status: 'pending',
       domain: 'Droit commercial'
+    },
+    {
+      id: 5,
+      type: 'warning',
+      title: 'Réforme du droit de la famille',
+      description: 'Nouvelles dispositions sur le divorce et la garde d\'enfants',
+      date: '2024-01-09',
+      status: 'new',
+      domain: 'Droit civil'
+    },
+    {
+      id: 6,
+      type: 'info',
+      title: 'Modification du Code de commerce',
+      description: 'Nouvelles règles pour les sociétés commerciales',
+      date: '2024-01-08',
+      status: 'processed',
+      domain: 'Droit commercial'
+    },
+    {
+      id: 7,
+      type: 'critical',
+      title: 'Loi sur la protection des données',
+      description: 'Nouvelle réglementation RGPD algérienne',
+      date: '2024-01-07',
+      status: 'pending',
+      domain: 'Droit numérique'
+    },
+    {
+      id: 8,
+      type: 'warning',
+      title: 'Réforme de la sécurité sociale',
+      description: 'Modifications des prestations sociales',
+      date: '2024-01-06',
+      status: 'new',
+      domain: 'Droit social'
+    },
+    {
+      id: 9,
+      type: 'info',
+      title: 'Jurisprudence administrative',
+      description: 'Conseil d\'État - Décision importante',
+      date: '2024-01-05',
+      status: 'archived',
+      domain: 'Droit administratif'
+    },
+    {
+      id: 10,
+      type: 'critical',
+      title: 'Loi de finances 2024',
+      description: 'Nouvelles mesures fiscales et budgétaires',
+      date: '2024-01-04',
+      status: 'new',
+      domain: 'Droit fiscal'
+    },
+    {
+      id: 11,
+      type: 'warning',
+      title: 'Réforme du droit pénal',
+      description: 'Modifications du Code pénal',
+      date: '2024-01-03',
+      status: 'processed',
+      domain: 'Droit pénal'
+    },
+    {
+      id: 12,
+      type: 'info',
+      title: 'Convention internationale',
+      description: 'Ratification d\'un nouveau traité international',
+      date: '2024-01-02',
+      status: 'pending',
+      domain: 'Droit international'
     }
   ];
 
