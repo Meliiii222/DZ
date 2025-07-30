@@ -34,7 +34,8 @@ import {
   AlertCircle,
   History,
   Volume2,
-  Zap
+  Zap,
+  Rss
 } from "lucide-react";
 
 // Import des modals
@@ -127,7 +128,14 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
     { id: 2, title: "Rapport annuel RSE", date: "2025-01-20", priority: "medium", status: "in-progress", category: "Environnement" },
     { id: 3, title: "Élections professionnelles", date: "2025-01-25", priority: "high", status: "pending", category: "Travail" },
     { id: 4, title: "Audit sécurité", date: "2025-02-01", priority: "medium", status: "scheduled", category: "Sécurité" },
-    { id: 5, title: "Renouvellement licences", date: "2025-02-10", priority: "low", status: "pending", category: "Commercial" }
+    { id: 5, title: "Renouvellement licences", date: "2025-02-10", priority: "low", status: "pending", category: "Commercial" },
+    { id: 6, title: "Déclaration sociale", date: "2025-02-15", priority: "high", status: "pending", category: "Social" },
+    { id: 7, title: "Rapport environnemental", date: "2025-02-20", priority: "medium", status: "scheduled", category: "Environnement" },
+    { id: 8, title: "Contrôle qualité", date: "2025-02-25", priority: "low", status: "pending", category: "Qualité" },
+    { id: 9, title: "Formation obligatoire", date: "2025-03-01", priority: "medium", status: "in-progress", category: "Formation" },
+    { id: 10, title: "Audit comptable", date: "2025-03-05", priority: "high", status: "scheduled", category: "Comptabilité" },
+    { id: 11, title: "Renouvellement assurance", date: "2025-03-10", priority: "medium", status: "pending", category: "Assurance" },
+    { id: 12, title: "Contrôle technique", date: "2025-03-15", priority: "low", status: "scheduled", category: "Technique" }
   ];
 
   // Types d'alertes pour configuration
@@ -136,7 +144,14 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
     { id: "2", name: "Jurisprudence", description: "Décisions de justice", active: true, frequency: "Quotidien" },
     { id: "3", name: "Réglementations", description: "Nouvelles réglementations", active: false, frequency: "Hebdomadaire" },
     { id: "4", name: "Circulaires", description: "Circulaires ministérielles", active: true, frequency: "Immédiat" },
-    { id: "5", name: "Échéances", description: "Dates limites réglementaires", active: true, frequency: "3 jours avant" }
+    { id: "5", name: "Échéances", description: "Dates limites réglementaires", active: true, frequency: "3 jours avant" },
+    { id: "6", name: "Marchés publics", description: "Appels d'offres et marchés", active: true, frequency: "Quotidien" },
+    { id: "7", name: "Fiscalité", description: "Évolutions fiscales", active: true, frequency: "Hebdomadaire" },
+    { id: "8", name: "Sécurité", description: "Alertes de sécurité", active: false, frequency: "Immédiat" },
+    { id: "9", name: "Environnement", description: "Réglementations environnementales", active: true, frequency: "Hebdomadaire" },
+    { id: "10", name: "Travail", description: "Droit du travail", active: true, frequency: "Quotidien" },
+    { id: "11", name: "Commerce", description: "Droit commercial", active: true, frequency: "Hebdomadaire" },
+    { id: "12", name: "Santé", description: "Réglementations sanitaires", active: false, frequency: "Quotidien" }
   ];
 
   // Canaux d'alertes
@@ -145,7 +160,12 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
     { id: "2", name: "Push Browser", icon: Bell, active: true, settings: "Activé pour ce navigateur" },
     { id: "3", name: "SMS", icon: Smartphone, active: false, settings: "Non configuré" },
     { id: "4", name: "Teams", icon: MessageSquare, active: true, settings: "Canal #veille-juridique" },
-    { id: "5", name: "Slack", icon: MessageSquare, active: false, settings: "Non configuré" }
+    { id: "5", name: "Slack", icon: MessageSquare, active: false, settings: "Non configuré" },
+    { id: "6", name: "WhatsApp", icon: MessageSquare, active: true, settings: "Groupe Veille Juridique" },
+    { id: "7", name: "Telegram", icon: MessageSquare, active: false, settings: "Non configuré" },
+    { id: "8", name: "Discord", icon: MessageSquare, active: true, settings: "Serveur #alertes" },
+    { id: "9", name: "Webhook", icon: Zap, active: true, settings: "API endpoint configuré" },
+    { id: "10", name: "RSS", icon: Rss, active: false, settings: "Non configuré" }
   ];
 
   // Historique des alertes
@@ -220,6 +240,48 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
   } = usePagination({
     data: pushNotifications,
     itemsPerPage: 10
+  });
+
+  // Pagination pour le calendrier réglementaire
+  const {
+    currentData: paginatedRegulatoryDeadlines,
+    currentPage: regulatoryDeadlinesCurrentPage,
+    totalPages: regulatoryDeadlinesTotalPages,
+    itemsPerPage: regulatoryDeadlinesItemsPerPage,
+    totalItems: regulatoryDeadlinesTotalItems,
+    setCurrentPage: setRegulatoryDeadlinesCurrentPage,
+    setItemsPerPage: setRegulatoryDeadlinesItemsPerPage
+  } = usePagination({
+    data: regulatoryDeadlines,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les types d'alertes
+  const {
+    currentData: paginatedAlertTypes,
+    currentPage: alertTypesCurrentPage,
+    totalPages: alertTypesTotalPages,
+    itemsPerPage: alertTypesItemsPerPage,
+    totalItems: alertTypesTotalItems,
+    setCurrentPage: setAlertTypesCurrentPage,
+    setItemsPerPage: setAlertTypesItemsPerPage
+  } = usePagination({
+    data: alertTypes,
+    itemsPerPage: 6
+  });
+
+  // Pagination pour les canaux d'alertes
+  const {
+    currentData: paginatedAlertChannels,
+    currentPage: alertChannelsCurrentPage,
+    totalPages: alertChannelsTotalPages,
+    itemsPerPage: alertChannelsItemsPerPage,
+    totalItems: alertChannelsTotalItems,
+    setCurrentPage: setAlertChannelsCurrentPage,
+    setItemsPerPage: setAlertChannelsItemsPerPage
+  } = usePagination({
+    data: alertChannels,
+    itemsPerPage: 5
   });
 
   return (
@@ -521,7 +583,7 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {regulatoryDeadlines.map((deadline) => (
+            {paginatedRegulatoryDeadlines.map((deadline) => (
               <Card key={deadline.id} className="hover:shadow-md transition-shadow">
                 <CardContent className="pt-4">
                   <div className="flex flex-col gap-3">
@@ -563,6 +625,16 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
               </Card>
             ))}
           </div>
+          
+          {/* Pagination pour le calendrier réglementaire */}
+          <Pagination
+            currentPage={regulatoryDeadlinesCurrentPage}
+            totalPages={regulatoryDeadlinesTotalPages}
+            totalItems={regulatoryDeadlinesTotalItems}
+            itemsPerPage={regulatoryDeadlinesItemsPerPage}
+            onPageChange={setRegulatoryDeadlinesCurrentPage}
+            onItemsPerPageChange={setRegulatoryDeadlinesItemsPerPage}
+          />
         </TabsContent>
 
         {/* Configuration des types d'alertes */}
@@ -579,7 +651,7 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {alertTypes.map((type) => (
+            {paginatedAlertTypes.map((type) => (
               <Card key={type.id}>
                 <CardContent className="pt-4">
                   <div className="flex items-center justify-between">
@@ -607,6 +679,16 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
               </Card>
             ))}
           </div>
+          
+          {/* Pagination pour les types d'alertes */}
+          <Pagination
+            currentPage={alertTypesCurrentPage}
+            totalPages={alertTypesTotalPages}
+            totalItems={alertTypesTotalItems}
+            itemsPerPage={alertTypesItemsPerPage}
+            onPageChange={setAlertTypesCurrentPage}
+            onItemsPerPageChange={setAlertTypesItemsPerPage}
+          />
         </TabsContent>
 
         {/* Configuration des canaux d'alertes */}
@@ -623,7 +705,7 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {alertChannels.map((channel) => (
+            {paginatedAlertChannels.map((channel) => (
               <Card key={channel.id}>
                 <CardContent className="pt-4">
                   <div className="flex items-center justify-between">
@@ -651,6 +733,16 @@ export function AlertsNotificationsSection({ language = "fr" }: AlertsNotificati
               </Card>
             ))}
           </div>
+          
+          {/* Pagination pour les canaux d'alertes */}
+          <Pagination
+            currentPage={alertChannelsCurrentPage}
+            totalPages={alertChannelsTotalPages}
+            totalItems={alertChannelsTotalItems}
+            itemsPerPage={alertChannelsItemsPerPage}
+            onPageChange={setAlertChannelsCurrentPage}
+            onItemsPerPageChange={setAlertChannelsItemsPerPage}
+          />
         </TabsContent>
       </Tabs>
 
