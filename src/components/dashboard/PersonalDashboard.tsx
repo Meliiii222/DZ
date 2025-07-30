@@ -128,6 +128,78 @@ const notifications = [
     time: "Il y a 2 heures",
     type: "urgent",
     unread: false
+  },
+  {
+    id: 4,
+    title: "Mise à jour système",
+    message: "Nouvelle version de la plateforme disponible",
+    time: "Il y a 3 heures",
+    type: "info",
+    unread: true
+  },
+  {
+    id: 5,
+    title: "Alerte de sécurité",
+    message: "Tentative de connexion suspecte détectée",
+    time: "Il y a 4 heures",
+    type: "urgent",
+    unread: true
+  },
+  {
+    id: 6,
+    title: "Nouvelle procédure disponible",
+    message: "Procédure de demande de visa simplifiée",
+    time: "Il y a 5 heures",
+    type: "info",
+    unread: false
+  },
+  {
+    id: 7,
+    title: "Rapport mensuel prêt",
+    message: "Le rapport de janvier 2024 est disponible",
+    time: "Il y a 6 heures",
+    type: "info",
+    unread: false
+  },
+  {
+    id: 8,
+    title: "Maintenance programmée",
+    message: "Maintenance système prévue ce soir à 22h",
+    time: "Il y a 7 heures",
+    type: "warning",
+    unread: true
+  },
+  {
+    id: 9,
+    title: "Nouveau commentaire",
+    message: "Commentaire ajouté sur la procédure PR-2024-12",
+    time: "Il y a 8 heures",
+    type: "info",
+    unread: false
+  },
+  {
+    id: 10,
+    title: "Document expiré",
+    message: "Le certificat de conformité expire dans 7 jours",
+    time: "Il y a 9 heures",
+    type: "warning",
+    unread: true
+  },
+  {
+    id: 11,
+    title: "Nouvelle jurisprudence",
+    message: "Arrêt de la Cour suprême sur les contrats commerciaux",
+    time: "Il y a 10 heures",
+    type: "info",
+    unread: false
+  },
+  {
+    id: 12,
+    title: "Erreur système",
+    message: "Problème temporaire avec l'extraction OCR",
+    time: "Il y a 11 heures",
+    type: "urgent",
+    unread: true
   }
 ];
 
